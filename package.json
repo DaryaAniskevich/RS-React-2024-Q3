@@ -10,7 +10,7 @@
     "format:fix": "prettier --write .",
     "pre-commit": "lint-staged",
     "preview": "vite preview",
-    "prepare": "cd .. && husky install class-components/.husky"
+    "prepare": "husky install"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": "npx eslint"
