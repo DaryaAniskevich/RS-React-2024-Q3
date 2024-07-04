@@ -5,12 +5,21 @@ input {
 }
 button {
   padding: 10px 20px;
-  background-color: #7acb7f;
   color: #fff;
-  border: 1px solid #7acb7f;
   cursor: pointer;
   font-weight: 500;
   font-size: 14px;
+}
+.button-boundary {
+  border: 1px solid #e15a50;
+  background-color: #e15a50;
+  margin-left: auto;
+  display: block;
+  margin-bottom: 20px;
+}
+.button-search {
+  border: 1px solid #7acb7f;
+  background-color: #7acb7f;
 }
 .search {
   display: flex;

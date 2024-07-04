@@ -1,3 +1,5 @@
+import React from 'react';
+
 export type FoodItem = {
   alcoholicBeverage: boolean;
   beverage: boolean;
@@ -18,3 +20,5 @@ export type FoodKeyTranslation = {
 };
 
 export type ResultsState = { isLoading: boolean; isError: boolean; items: FoodItem[] };
+
+export type ErrorBoundaryProps = { fallback: React.ReactNode; children: React.ReactNode };

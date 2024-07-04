@@ -31,7 +31,7 @@ export default class Search extends React.Component<Record<string, never>, { inp
     return (
       <div className="search">
         <input value={inputValue} onChange={this.handleChange} />
-        <button type="submit" onClick={this.handleSubmit}>
+        <button type="submit" onClick={this.handleSubmit} className="button-search">
           Search
         </button>
       </div>
