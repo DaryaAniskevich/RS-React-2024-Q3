@@ -1,5 +1,5 @@
 import React from 'react';
-import { apiUrl } from '../../helpers/constants';
+import { apiUrl, localStorageSearchValue } from '../../helpers/constants';
 import Loader from '../common/Loader';
 import { ResultsState } from '../../helpers/types';
 import ListItem from './ListItem';
@@ -15,16 +15,43 @@ export default class Results extends React.Component<Record<string, never>, Resu
   }
 
   componentDidMount(): void {
+    window.addEventListener('storage', this.handleLocalStorageChange, false);
     this.fetchData();
   }
 
+  componentWillUnmount() {
+    window.removeEventListener('storage', this.handleLocalStorageChange, false);
+  }
+
+  handleLocalStorageChange = () => {
+    this.fetchData();
+  };
+
   fetchData = () => {
+    const localSearch = localStorage.getItem(localStorageSearchValue);
     try {
-      fetch(apiUrl)
-        .then((result) => result.json())
-        .then((result) => {
-          this.setState({ items: result.foods, isLoading: false });
-        });
+      this.setState({ isLoading: true });
+      if (localSearch) {
+        fetch(apiUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: new URLSearchParams({
+            name: localSearch,
+          }),
+        })
+          .then((result) => result.json())
+          .then((result) => {
+            this.setState({ items: result.foods, isLoading: false });
+          });
+      } else {
+        fetch(apiUrl)
+          .then((result) => result.json())
+          .then((result) => {
+            this.setState({ items: result.foods, isLoading: false });
+          });
+      }
     } catch (e) {
       this.setState({ isError: true, isLoading: false });
     }

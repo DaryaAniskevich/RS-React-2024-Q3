@@ -49,6 +49,7 @@ button {
   flex-direction: column;
   gap: 20px;
   list-style: none;
+  padding-left: 0;
 }
 
 .list-item {

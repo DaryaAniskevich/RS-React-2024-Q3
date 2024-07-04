@@ -23,6 +23,7 @@ export default class Search extends React.Component<Record<string, never>, { inp
   handleSubmit = () => {
     const { inputValue } = this.state;
     localStorage.setItem(localStorageSearchValue, inputValue);
+    window.dispatchEvent(new Event('storage'));
   };
 
   render() {
