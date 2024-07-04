@@ -1,7 +1,7 @@
 import React from 'react';
 import { apiUrl, localStorageSearchValue } from '../../helpers/constants';
 import Loader from '../common/Loader';
-import { ResultsState } from '../../helpers/types';
+import { FoodItem, ResultsState } from '../../helpers/types';
 import ListItem from './ListItem';
 
 export default class Results extends React.Component<Record<string, never>, ResultsState> {
@@ -27,6 +27,10 @@ export default class Results extends React.Component<Record<string, never>, Resu
     this.fetchData();
   };
 
+  setRequestResult = (data: FoodItem[]) => {
+    this.setState({ items: data, isLoading: false });
+  };
+
   fetchData = () => {
     const localSearch = localStorage.getItem(localStorageSearchValue);
     try {
@@ -43,13 +47,13 @@ export default class Results extends React.Component<Record<string, never>, Resu
         })
           .then((result) => result.json())
           .then((result) => {
-            this.setState({ items: result.foods, isLoading: false });
+            this.setRequestResult(result.foods);
           });
       } else {
         fetch(apiUrl)
           .then((result) => result.json())
           .then((result) => {
-            this.setState({ items: result.foods, isLoading: false });
+            this.setRequestResult(result.foods);
           });
       }
     } catch (e) {

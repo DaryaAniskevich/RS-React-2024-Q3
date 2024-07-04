@@ -14,13 +14,10 @@ export default class ErrorBoundary extends React.Component<
     return { hasError: true };
   }
 
-  //   componentDidCatch(error, info) {
-  //     logErrorToMyService(error, info.componentStack);
-  //   }
-
   render() {
     const { fallback, children } = this.props;
     const { hasError } = this.state;
+
     if (hasError) {
       return fallback;
     }
