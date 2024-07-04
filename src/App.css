@@ -1,0 +1,71 @@
+input {
+  padding: 10px 20px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+button {
+  padding: 10px 20px;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 14px;
+}
+.button-boundary {
+  border: 1px solid #e15a50;
+  background-color: #e15a50;
+  margin-left: auto;
+  display: block;
+  margin-bottom: 20px;
+}
+.button-search {
+  border: 1px solid #7acb7f;
+  background-color: #7acb7f;
+}
+.search {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.loader {
+  width: 50px;
+  --b: 8px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  padding: 1px;
+  background: conic-gradient(#0000 10%, #7acb7f) content-box;
+  -webkit-mask: repeating-conic-gradient(#0000 0deg, #000 1deg 20deg, #0000 21deg 36deg),
+    radial-gradient(farthest-side, #0000 calc(100% - var(--b) - 1px), #000 calc(100% - var(--b)));
+  -webkit-mask-composite: destination-in;
+  mask-composite: intersect;
+  animation: l4 1s infinite steps(10);
+}
+@keyframes l4 {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+.results {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  list-style: none;
+  padding-left: 0;
+}
+
+.list-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.list-item__name {
+  font-size: 17px;
+}
