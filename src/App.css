@@ -1,0 +1,20 @@
+input {
+  padding: 10px 20px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+button {
+  padding: 10px 20px;
+  background-color: #7acb7f;
+  color: #fff;
+  border: 1px solid #7acb7f;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 14px;
+}
+.search {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
