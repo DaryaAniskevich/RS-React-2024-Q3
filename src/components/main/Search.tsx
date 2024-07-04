@@ -1,5 +1,5 @@
 import React from 'react';
-import localStorageSearchValue from '../../helpers/constants';
+import { localStorageSearchValue } from '../../helpers/constants';
 
 export default class Search extends React.Component<Record<string, never>, { inputValue: string }> {
   constructor(props: Record<string, never>) {

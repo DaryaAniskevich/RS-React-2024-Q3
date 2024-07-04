@@ -1,3 +1,16 @@
-const localStorageSearchValue = 'searchValue';
+export const localStorageSearchValue = 'searchValue';
 
-export default localStorageSearchValue;
+export const apiUrl = 'https://stapi.co/api/v1/rest/food/search';
+
+export const foodKeyTranslation = {
+  alcoholicBeverage: 'Alcoholic Beverage',
+  beverage: 'Beverage',
+  dessert: 'Dessert',
+  earthlyOrigin: 'Earthly origin',
+  fruit: 'Fruit',
+  herbOrSpice: 'Herb or spice',
+  juice: 'Juice',
+  sauce: 'Sauce',
+  soup: 'Soup',
+  tea: 'Tea',
+};
