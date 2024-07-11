@@ -1,25 +1,30 @@
 import { useContext } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import Loader from '../common/Loader';
-
 import ListItem from './ListItem';
 import { ResultContext } from '../../context/resultContext';
 import Pagination from '../common/Pagination';
+import ErrorMessage from '../common/ErrorMessage';
+import getCurrentPage from '../../helpers/utils';
 
 function Results() {
   const { items, isLoading, isError, pages } = useContext(ResultContext);
+  const [searchParams] = useSearchParams();
+  const currentPage = getCurrentPage(searchParams);
+
   let content;
 
   if (isLoading) {
     content = <Loader />;
   } else if (isError) {
-    content = <div>Something went wrong</div>;
+    content = <ErrorMessage />;
   } else {
     content = (
       <>
         {items.length > 0 ? (
           <ul className="list">
             {items.map((item) => (
-              <ListItem key={item.uid} food={item} />
+              <ListItem key={item.uid} food={item} currentPage={currentPage} />
             ))}
           </ul>
         ) : (

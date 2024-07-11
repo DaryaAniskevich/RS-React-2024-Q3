@@ -1,7 +1,8 @@
+import { NavLink } from 'react-router-dom';
 import { FoodItem, FoodKeyTranslation } from '../../helpers/types';
-import { foodKeyTranslation } from '../../helpers/constants';
+import { foodKeyTranslation, PATHS } from '../../helpers/constants';
 
-function ListItem({ food }: { food: FoodItem }) {
+function ListItem({ food, currentPage }: { food: FoodItem; currentPage: number }) {
   const { name } = food;
 
   const type = Object.entries(food)
@@ -13,16 +14,19 @@ function ListItem({ food }: { food: FoodItem }) {
 
   return (
     <li className="list-item">
-      <span className="list-item__name">Name: {name}</span>
-      <span className="list-item__type">
-        Type:{' '}
-        {type.length
-          ? type.reduce(
-              (acc: string, item, index, arr) => acc + item + (index < arr.length - 1 ? ', ' : ''),
-              '',
-            )
-          : 'No info'}
-      </span>
+      <NavLink to={`${PATHS.DETAILS_PAGE}${food.uid}?page=${currentPage}`}>
+        <span className="list-item__name">Name: {name}</span>
+        <span className="list-item__type">
+          Type:{' '}
+          {type.length
+            ? type.reduce(
+                (acc: string, item, index, arr) =>
+                  acc + item + (index < arr.length - 1 ? ', ' : ''),
+                '',
+              )
+            : 'No info'}
+        </span>
+      </NavLink>
     </li>
   );
 }

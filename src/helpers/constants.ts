@@ -1,6 +1,7 @@
 export const localStorageSearchValue = 'searchValue';
 
-export const apiUrl = 'https://stapi.co/api/v1/rest/food/search';
+export const apiUrl = 'https://stapi.co/api/v1/rest/food';
+export const apiUrlSearch = 'https://stapi.co/api/v1/rest/food/search';
 
 export const foodKeyTranslation = {
   alcoholicBeverage: 'Alcoholic Beverage',
@@ -17,3 +18,10 @@ export const foodKeyTranslation = {
 
 export const defaultPage = 1;
 export const defaultPageSize = 15;
+
+export const PATHS = {
+  MAIN: '/',
+  DETAILS: '/details/:uid',
+  DETAILS_PAGE: '/details/',
+  NOT_FOUND: '*',
+};

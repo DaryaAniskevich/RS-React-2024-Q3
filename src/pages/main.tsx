@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { Outlet, useSearchParams } from 'react-router-dom';
 import Search from '../components/main/Search';
 import Results from '../components/main/Results';
 import { ResultProvider } from '../context/resultContext';
@@ -28,10 +28,15 @@ function Main() {
       <button type="button" onClick={addError} className="button-boundary">
         Check Error Boundary
       </button>
-      <ResultProvider>
-        <Search />
-        <Results />
-      </ResultProvider>
+      <div className="main">
+        <div className="content">
+          <ResultProvider>
+            <Search />
+            <Results />
+          </ResultProvider>
+        </div>
+        <Outlet />
+      </div>
     </main>
   );
 }
