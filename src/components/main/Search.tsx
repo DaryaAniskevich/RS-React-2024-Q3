@@ -1,29 +1,17 @@
-import { ChangeEvent, useEffect, useState } from 'react';
-import { localStorageSearchValue } from '../../helpers/constants';
+import { ChangeEvent } from 'react';
+import useLocalStorageSearchValue from '../../helpers/hooks';
 
-function Search() {
-  const [inputValue, setInputValue] = useState('');
-
-  useEffect(() => {
-    const localStorageValue = localStorage.getItem(localStorageSearchValue);
-    if (localStorageValue) {
-      setInputValue(localStorageValue);
-    }
-  }, []);
+function Search({ fetchData }: { fetchData: (search?: string) => void }) {
+  const { searchValue, setSearchValue } = useLocalStorageSearchValue();
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setInputValue(event.target.value);
-  };
-
-  const handleSubmit = () => {
-    localStorage.setItem(localStorageSearchValue, inputValue);
-    window.dispatchEvent(new Event('storage'));
+    setSearchValue(event.target.value);
   };
 
   return (
     <div className="search">
-      <input value={inputValue} onChange={handleChange} />
-      <button type="submit" onClick={handleSubmit} className="button-search">
+      <input value={searchValue} onChange={handleChange} />
+      <button type="submit" onClick={() => fetchData(searchValue)} className="button-search">
         Search
       </button>
     </div>

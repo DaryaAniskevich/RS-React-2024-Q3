@@ -22,3 +22,9 @@ export type FoodKeyTranslation = {
 export type ResultsState = { isLoading: boolean; isError: boolean; items: FoodItem[] };
 
 export type ErrorBoundaryProps = { fallback: React.ReactNode; children: React.ReactNode };
+
+export type ResultsProps = {
+  data: FoodItem[];
+  isLoading: boolean;
+  isError: boolean;
+};
