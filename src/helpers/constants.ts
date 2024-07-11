@@ -14,3 +14,6 @@ export const foodKeyTranslation = {
   soup: 'Soup',
   tea: 'Tea',
 };
+
+export const defaultPage = 1;
+export const defaultPageSize = 15;

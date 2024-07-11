@@ -1,9 +1,12 @@
-import { apiUrl } from '../helpers/constants';
+import { apiUrl, defaultPageSize } from '../helpers/constants';
 
 const api = {
-  getAllList: () => fetch(apiUrl).then((result) => result.json()),
-  getSearchResult: (search: string) =>
-    fetch(apiUrl, {
+  getAllList: (page: number) =>
+    fetch(`${apiUrl}?pageNumber=${page}&pageSize=${defaultPageSize}`).then((result) =>
+      result.json(),
+    ),
+  getSearchResult: (search: string, page: number) =>
+    fetch(`${apiUrl}?pageNumber=${page}&pageSize=${defaultPageSize}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',

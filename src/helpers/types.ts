@@ -19,7 +19,13 @@ export type FoodKeyTranslation = {
   [key: string]: string;
 };
 
-export type ResultsState = { isLoading: boolean; isError: boolean; items: FoodItem[] };
+export type ResultsContext = {
+  isLoading: boolean;
+  isError: boolean;
+  pages: number;
+  items: FoodItem[];
+  fetchData: ({ search, page }: { search?: string; page: number }) => void;
+};
 
 export type ErrorBoundaryProps = { fallback: React.ReactNode; children: React.ReactNode };
 

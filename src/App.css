@@ -92,3 +92,23 @@ button {
   text-decoration: none;
   font-size: 18px;
 }
+
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-size: 18px;
+}
+.button-pagination {
+  border: 1px solid #7acb7f;
+  background-color: #7acb7f;
+  color: #fff;
+  padding: 10px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 12px;
+}
+.button-pagination:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

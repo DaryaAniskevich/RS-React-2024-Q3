@@ -1,8 +1,12 @@
+import { useContext } from 'react';
 import Loader from '../common/Loader';
-import { ResultsProps } from '../../helpers/types';
-import ListItem from './ListItem';
 
-function Results({ data, isLoading, isError }: ResultsProps) {
+import ListItem from './ListItem';
+import { ResultContext } from '../../context/resultContext';
+import Pagination from '../common/Pagination';
+
+function Results() {
+  const { items, isLoading, isError, pages } = useContext(ResultContext);
   let content;
 
   if (isLoading) {
@@ -11,11 +15,18 @@ function Results({ data, isLoading, isError }: ResultsProps) {
     content = <div>Something went wrong</div>;
   } else {
     content = (
-      <ul className="list">
-        {data.map((item) => (
-          <ListItem key={item.uid} food={item} />
-        ))}
-      </ul>
+      <>
+        {items.length > 0 ? (
+          <ul className="list">
+            {items.map((item) => (
+              <ListItem key={item.uid} food={item} />
+            ))}
+          </ul>
+        ) : (
+          <div>No results</div>
+        )}
+        <Pagination pages={pages} />
+      </>
     );
   }
 

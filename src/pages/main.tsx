@@ -1,48 +1,23 @@
 import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import Search from '../components/main/Search';
 import Results from '../components/main/Results';
-import { FoodItem } from '../helpers/types';
-import useLocalStorageSearchValue from '../helpers/hooks';
-import api from '../api/api';
+import { ResultProvider } from '../context/resultContext';
 
 function Main() {
-  const { searchValue } = useLocalStorageSearchValue();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const [isError, setIsError] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isLoadingError, setIsLoadingError] = useState(false);
-  const [items, setItems] = useState<FoodItem[]>([]);
 
   const addError = () => {
     setIsError(true);
   };
-  const setRequestResult = (data: FoodItem[]) => {
-    setIsLoading(false);
-    setItems(data);
-  };
-
-  const fetchData = (search?: string) => {
-    try {
-      setIsLoading(true);
-      setIsLoadingError(false);
-      if (search) {
-        api.getSearchResult(search).then((result) => {
-          setRequestResult(result.foods);
-        });
-      } else {
-        api.getAllList().then((result) => {
-          setRequestResult(result.foods);
-        });
-      }
-    } catch (e) {
-      setIsLoadingError(true);
-      setIsLoading(false);
-    }
-  };
 
   useEffect(() => {
-    fetchData(searchValue);
-  }, []);
+    if (!searchParams.get('page')) {
+      setSearchParams({ page: '1' });
+    }
+  }, [searchParams]);
 
   if (isError) {
     throw new Error('Something went wrong');
@@ -53,8 +28,10 @@ function Main() {
       <button type="button" onClick={addError} className="button-boundary">
         Check Error Boundary
       </button>
-      <Search fetchData={fetchData} />
-      <Results data={items} isLoading={isLoading} isError={isLoadingError} />
+      <ResultProvider>
+        <Search />
+        <Results />
+      </ResultProvider>
     </main>
   );
 }
