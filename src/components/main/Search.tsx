@@ -1,40 +1,33 @@
-import React from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { localStorageSearchValue } from '../../helpers/constants';
 
-export default class Search extends React.Component<Record<string, never>, { inputValue: string }> {
-  constructor(props: Record<string, never>) {
-    super(props);
-    this.state = {
-      inputValue: '',
-    };
-  }
+function Search() {
+  const [inputValue, setInputValue] = useState('');
 
-  componentDidMount(): void {
+  useEffect(() => {
     const localStorageValue = localStorage.getItem(localStorageSearchValue);
     if (localStorageValue) {
-      this.setState({ inputValue: localStorageValue });
+      setInputValue(localStorageValue);
     }
-  }
+  }, []);
 
-  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ inputValue: event.target.value });
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setInputValue(event.target.value);
   };
 
-  handleSubmit = () => {
-    const { inputValue } = this.state;
+  const handleSubmit = () => {
     localStorage.setItem(localStorageSearchValue, inputValue);
     window.dispatchEvent(new Event('storage'));
   };
 
-  render() {
-    const { inputValue } = this.state;
-    return (
-      <div className="search">
-        <input value={inputValue} onChange={this.handleChange} />
-        <button type="submit" onClick={this.handleSubmit} className="button-search">
-          Search
-        </button>
-      </div>
-    );
-  }
+  return (
+    <div className="search">
+      <input value={inputValue} onChange={handleChange} />
+      <button type="submit" onClick={handleSubmit} className="button-search">
+        Search
+      </button>
+    </div>
+  );
 }
+
+export default Search;

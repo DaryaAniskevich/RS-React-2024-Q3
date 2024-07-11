@@ -1,40 +1,21 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import { apiUrl, localStorageSearchValue } from '../../helpers/constants';
 import Loader from '../common/Loader';
-import { FoodItem, ResultsState } from '../../helpers/types';
+import { FoodItem } from '../../helpers/types';
 import ListItem from './ListItem';
 
-export default class Results extends React.Component<Record<string, never>, ResultsState> {
-  constructor(props: Record<string, never>) {
-    super(props);
-    this.state = {
-      isLoading: true,
-      isError: false,
-      items: [],
-    };
-  }
-
-  componentDidMount(): void {
-    window.addEventListener('storage', this.handleLocalStorageChange, false);
-    this.fetchData();
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('storage', this.handleLocalStorageChange, false);
-  }
-
-  handleLocalStorageChange = () => {
-    this.fetchData();
+function Results() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
+  const [items, setItems] = useState<FoodItem[]>([]);
+  const setRequestResult = (data: FoodItem[]) => {
+    setIsLoading(false);
+    setItems(data);
   };
-
-  setRequestResult = (data: FoodItem[]) => {
-    this.setState({ items: data, isLoading: false });
-  };
-
-  fetchData = () => {
+  const fetchData = () => {
     const localSearch = localStorage.getItem(localStorageSearchValue);
     try {
-      this.setState({ isLoading: true });
+      setIsLoading(true);
       if (localSearch) {
         fetch(apiUrl, {
           method: 'POST',
@@ -47,44 +28,55 @@ export default class Results extends React.Component<Record<string, never>, Resu
         })
           .then((result) => result.json())
           .then((result) => {
-            this.setRequestResult(result.foods);
+            setRequestResult(result.foods);
           });
       } else {
         fetch(apiUrl)
           .then((result) => result.json())
           .then((result) => {
-            this.setRequestResult(result.foods);
+            setRequestResult(result.foods);
           });
       }
     } catch (e) {
-      this.setState({ isError: true, isLoading: false });
+      setIsError(true);
+      setIsLoading(false);
     }
   };
 
-  render() {
-    const { isLoading, isError, items } = this.state;
+  const handleLocalStorageChange = () => {
+    fetchData();
+  };
 
-    let content;
+  useEffect(() => {
+    window.addEventListener('storage', handleLocalStorageChange, false);
+    fetchData();
+    return () => {
+      window.removeEventListener('storage', handleLocalStorageChange, false);
+    };
+  }, []);
 
-    if (isLoading) {
-      content = <Loader />;
-    } else if (isError) {
-      content = <div>Something went wrong</div>;
-    } else {
-      content = (
-        <ul className="list">
-          {items.map((item) => (
-            <ListItem key={item.uid} food={item} />
-          ))}
-        </ul>
-      );
-    }
+  let content;
 
-    return (
-      <div className="results">
-        <h2>Results</h2>
-        {content}
-      </div>
+  if (isLoading) {
+    content = <Loader />;
+  } else if (isError) {
+    content = <div>Something went wrong</div>;
+  } else {
+    content = (
+      <ul className="list">
+        {items.map((item) => (
+          <ListItem key={item.uid} food={item} />
+        ))}
+      </ul>
     );
   }
+
+  return (
+    <div className="results">
+      <h2>Results</h2>
+      {content}
+    </div>
+  );
 }
+
+export default Results;
