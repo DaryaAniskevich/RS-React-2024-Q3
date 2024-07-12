@@ -69,3 +69,9 @@ export type ResultsProps = {
   isLoading: boolean;
   isError: boolean;
 };
+
+export type DetailsCardProps = {
+  data: MagazineDetailsItem | null;
+  isLoading: boolean;
+  isError: boolean;
+};

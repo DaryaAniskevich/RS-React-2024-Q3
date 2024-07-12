@@ -1,19 +1,11 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import api from '../api/api';
-import Loader from '../components/common/Loader';
-import ErrorMessage from '../components/common/ErrorMessage';
 import { MagazineDetailsItem } from '../helpers/types';
-import DetailsData from '../components/details/DetailsData';
-import { PATHS } from '../helpers/constants';
-import getCurrentPage from '../helpers/utils';
+import DetailsCard from '../components/details/DetailsCard';
 
 function Details() {
-  const navigate = useNavigate();
   const { uid } = useParams();
-  const [searchParams] = useSearchParams();
-
-  const currentPage = getCurrentPage(searchParams);
 
   const [data, setData] = useState<MagazineDetailsItem | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -40,28 +32,7 @@ function Details() {
     }
   }, [uid]);
 
-  const closeDetails = () => {
-    navigate(`${PATHS.MAIN}?page=${currentPage}`);
-  };
-
-  let content;
-
-  if (isLoading) {
-    content = <Loader />;
-  } else if (isError) {
-    content = <ErrorMessage />;
-  } else {
-    content = <div>{data ? <DetailsData data={data} /> : 'No data found'}</div>;
-  }
-
-  return (
-    <div className="content details">
-      <button type="button" className="button-close" onClick={closeDetails}>
-        Close
-      </button>
-      {content}
-    </div>
-  );
+  return <DetailsCard data={data} isLoading={isLoading} isError={isError} />;
 }
 
 export default Details;
