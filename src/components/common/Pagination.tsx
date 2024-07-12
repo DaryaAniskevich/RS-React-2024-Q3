@@ -1,20 +1,14 @@
-import { useContext } from 'react';
-import { useSearchParams } from 'react-router-dom';
 import { defaultPage } from '../../helpers/constants';
-import { ResultContext } from '../../context/resultContext';
-import useLocalStorageSearchValue from '../../helpers/hooks';
 
-function Pagination({ pages, currentPage }: { pages: number; currentPage: number }) {
-  const { fetchData } = useContext(ResultContext);
-
-  const [, setSearchParams] = useSearchParams();
-  const { searchValue } = useLocalStorageSearchValue();
-
-  const changePage = (page: number) => {
-    setSearchParams({ page: page.toString() });
-    fetchData({ search: searchValue, page });
-  };
-
+function Pagination({
+  pages,
+  currentPage,
+  changePage,
+}: {
+  pages: number;
+  currentPage: number;
+  changePage: (page: number) => void;
+}) {
   return (
     <div className="pagination">
       <button
