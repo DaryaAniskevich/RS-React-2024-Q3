@@ -55,8 +55,8 @@ export function ResultProvider({ children }: { children: React.ReactNode }) {
   }, []);
 
   const value = useMemo(
-    () => ({ isLoading, isError, pages: allPages, items, fetchData }),
-    [isLoading, isError, items, fetchData],
+    () => ({ isLoading, isError, currentPage, pages: allPages, items, fetchData }),
+    [isLoading, isError, currentPage, items, fetchData],
   );
 
   return <ResultContext.Provider value={value}>{children}</ResultContext.Provider>;

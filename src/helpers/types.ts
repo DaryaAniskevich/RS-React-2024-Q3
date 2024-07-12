@@ -57,6 +57,7 @@ export type ResultsContext = {
   isLoading: boolean;
   isError: boolean;
   pages: number;
+  currentPage: number;
   items: MagazineItem[];
   fetchData: ({ search, page }: { search?: string; page: number }) => void;
 };

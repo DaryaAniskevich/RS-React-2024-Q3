@@ -123,7 +123,7 @@ button {
   display: flex;
 }
 .main .content {
-  width: 100%;
+  width: 110%;
 }
 
 .details {
@@ -143,4 +143,22 @@ button {
     rgba(30, 81, 45, 0.15) 50%,
     rgba(255, 255, 255, 0.2) 100%
   );
+  position: relative;
+}
+
+.details .button-close {
+  border: 1px solid #fff;
+  background-color: #fff;
+  color: #7acb7f;
+  padding: 10px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 12px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+.details .button-close:hover {
+  background-color: #7acb7f;
+  color: #fff;
 }

@@ -1,16 +1,12 @@
 import { useContext } from 'react';
-import { useSearchParams } from 'react-router-dom';
 import Loader from '../common/Loader';
 import ListItem from './ListItem';
 import { ResultContext } from '../../context/resultContext';
 import Pagination from '../common/Pagination';
 import ErrorMessage from '../common/ErrorMessage';
-import getCurrentPage from '../../helpers/utils';
 
 function Results() {
-  const { items, isLoading, isError, pages } = useContext(ResultContext);
-  const [searchParams] = useSearchParams();
-  const currentPage = getCurrentPage(searchParams);
+  const { items, isLoading, isError, pages, currentPage } = useContext(ResultContext);
 
   let content;
 
@@ -30,7 +26,7 @@ function Results() {
         ) : (
           <div>No results</div>
         )}
-        <Pagination pages={pages} />
+        <Pagination pages={pages} currentPage={currentPage} />
       </>
     );
   }
