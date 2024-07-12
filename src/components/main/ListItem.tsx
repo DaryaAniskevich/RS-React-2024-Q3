@@ -10,8 +10,8 @@ function ListItem({ magazine, currentPage }: { magazine: MagazineItem; currentPa
       <NavLink to={`${PATHS.DETAILS_PAGE}${uid}?page=${currentPage}`}>
         <span className="list-item__name">Name: {title}</span>
         <span className="list-item__type">
-          {magazineKeyTranslation.publishedYear}: {publishedYear},{' '}
-          {magazineKeyTranslation.numberOfPages}: {numberOfPages}
+          {magazineKeyTranslation.publishedYear}: {publishedYear ?? 'No data'},{' '}
+          {magazineKeyTranslation.numberOfPages}: {numberOfPages ?? 'No data'}
         </span>
       </NavLink>
     </li>

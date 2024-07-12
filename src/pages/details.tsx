@@ -3,12 +3,13 @@ import { useParams } from 'react-router-dom';
 import api from '../api/api';
 import Loader from '../components/common/Loader';
 import ErrorMessage from '../components/common/ErrorMessage';
-import { MagazineItem } from '../helpers/types';
+import { MagazineDetailsItem } from '../helpers/types';
+import DetailsData from '../components/details/DetailsData';
 
 function Details() {
   const { uid } = useParams();
 
-  const [data, setData] = useState<MagazineItem | null>(null);
+  const [data, setData] = useState<MagazineDetailsItem | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
@@ -40,7 +41,7 @@ function Details() {
   } else if (isError) {
     content = <ErrorMessage />;
   } else {
-    content = <div>{data ? 'result' : 'No data found'}</div>;
+    content = <div>{data ? <DetailsData data={data} /> : 'No data found'}</div>;
   }
 
   return <div className="content details">{content}</div>;

@@ -1,16 +1,56 @@
 import React from 'react';
 
+type MagazineItemKeyValue = number | null;
+
 export type MagazineItem = {
   uid: string;
   title: string;
-  publishedYear: number | null;
-  publishedMonth: number | null;
-  publishedDay: number | null;
-  coverYear: number | null;
-  coverMonth: number | null;
-  coverDay: number | null;
-  numberOfPages: number | null;
+  publishedYear: MagazineItemKeyValue;
+  publishedMonth: MagazineItemKeyValue;
+  publishedDay: MagazineItemKeyValue;
+  coverYear: MagazineItemKeyValue;
+  coverMonth: MagazineItemKeyValue;
+  coverDay: MagazineItemKeyValue;
+  numberOfPages: MagazineItemKeyValue;
   issueNumber: string | null;
+};
+
+type PublisherItem = {
+  broadcaster: boolean;
+  collectibleCompany: boolean;
+  conglomerate: boolean;
+  digitalVisualEffectsCompany: boolean;
+  distributor: boolean;
+  filmEquipmentCompany: boolean;
+  gameCompany: boolean;
+  makeUpEffectsStudio: boolean;
+  mattePaintingCompany: boolean;
+  modelAndMiniatureEffectsCompany: boolean;
+  name: string;
+  postProductionCompany: boolean;
+  productionCompany: boolean;
+  propCompany: boolean;
+  recordLabel: boolean;
+  specialEffectsCompany: boolean;
+  tvAndFilmProductionCompany: boolean;
+  uid: string;
+  videoGameCompany: boolean;
+};
+
+type MagazineSeriesItem = {
+  uid: string;
+  title: string;
+  publishedYearFrom: MagazineItemKeyValue;
+  publishedMonthFrom: MagazineItemKeyValue;
+  publishedYearTo: MagazineItemKeyValue;
+  publishedMonthTo: MagazineItemKeyValue;
+  numberOfIssues: string | null;
+};
+
+export type MagazineDetailsItem = MagazineItem & {
+  magazineSeries: MagazineSeriesItem[];
+  editors: unknown[];
+  publishers: PublisherItem[];
 };
 
 export type ResultsContext = {

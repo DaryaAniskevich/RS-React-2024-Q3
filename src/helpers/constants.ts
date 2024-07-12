@@ -15,7 +15,7 @@ export const magazineKeyTranslation = {
 };
 
 export const defaultPage = 1;
-export const defaultPageSize = 15;
+export const defaultPageSize = 10;
 
 export const PATHS = {
   MAIN: '/',

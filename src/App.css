@@ -125,3 +125,22 @@ button {
 .main .content {
   width: 100%;
 }
+
+.details {
+  min-height: 750px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #7acb7f;
+  padding: 20px;
+  text-align: center;
+  backdrop-filter: blur(10px);
+  background: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.2) 0%,
+    rgba(30, 81, 45, 0.15) 50%,
+    rgba(255, 255, 255, 0.2) 100%
+  );
+}
