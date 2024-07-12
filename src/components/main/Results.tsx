@@ -1,9 +1,9 @@
 import { useContext } from 'react';
 import Loader from '../common/Loader';
-import ListItem from './ListItem';
 import { ResultContext } from '../../context/resultContext';
 import Pagination from '../common/Pagination';
 import ErrorMessage from '../common/ErrorMessage';
+import CardList from './CardList';
 
 function Results() {
   const { items, isLoading, isError, pages, currentPage } = useContext(ResultContext);
@@ -17,15 +17,7 @@ function Results() {
   } else {
     content = (
       <>
-        {items.length > 0 ? (
-          <ul className="list">
-            {items.map((item) => (
-              <ListItem key={item.uid} magazine={item} currentPage={currentPage} />
-            ))}
-          </ul>
-        ) : (
-          <div>No results</div>
-        )}
+        <CardList items={items} currentPage={currentPage} />
         <Pagination pages={pages} currentPage={currentPage} />
       </>
     );

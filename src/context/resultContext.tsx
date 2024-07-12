@@ -4,11 +4,13 @@ import { MagazineItem, ResultsContext } from '../helpers/types';
 import useLocalStorageSearchValue from '../helpers/hooks';
 import api from '../api/api';
 import getCurrentPage from '../helpers/utils';
+import { defaultPage } from '../helpers/constants';
 
 export const ResultContext = createContext<ResultsContext>({
   isLoading: false,
   isError: false,
   pages: 0,
+  currentPage: defaultPage,
   items: [],
   fetchData: () => {},
 });
