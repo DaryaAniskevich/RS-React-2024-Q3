@@ -12,7 +12,7 @@ const api = {
         'Content-Type': 'application/x-www-form-urlencoded',
       },
       body: new URLSearchParams({
-        name: search,
+        title: search,
       }),
     }).then((result) => result.json()),
 

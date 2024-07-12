@@ -24,7 +24,7 @@ function Results() {
         {items.length > 0 ? (
           <ul className="list">
             {items.map((item) => (
-              <ListItem key={item.uid} food={item} currentPage={currentPage} />
+              <ListItem key={item.uid} magazine={item} currentPage={currentPage} />
             ))}
           </ul>
         ) : (
@@ -37,7 +37,7 @@ function Results() {
 
   return (
     <div className="results">
-      <h2>Results</h2>
+      <h2>Magazines Results</h2>
       {content}
     </div>
   );

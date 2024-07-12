@@ -9,9 +9,11 @@ function Search() {
 
   const { searchValue, setSearchValue } = useLocalStorageSearchValue();
   const { fetchData } = useContext(ResultContext);
+
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(event.target.value);
   };
+
   const handleSubmit = () => {
     setSearchParams({ page: defaultPage.toString() });
     fetchData({ search: searchValue, page: defaultPage });

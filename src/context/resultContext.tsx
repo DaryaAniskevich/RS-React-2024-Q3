@@ -1,6 +1,6 @@
 import { createContext, useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { FoodItem, ResultsContext } from '../helpers/types';
+import { MagazineItem, ResultsContext } from '../helpers/types';
 import useLocalStorageSearchValue from '../helpers/hooks';
 import api from '../api/api';
 import getCurrentPage from '../helpers/utils';
@@ -22,9 +22,9 @@ export function ResultProvider({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
   const [allPages, setAllPages] = useState(0);
-  const [items, setItems] = useState<FoodItem[]>([]);
+  const [items, setItems] = useState<MagazineItem[]>([]);
 
-  const setRequestResult = (data: FoodItem[], pages: number) => {
+  const setRequestResult = (data: MagazineItem[], pages: number) => {
     setIsLoading(false);
     setItems(data);
     setAllPages(pages);
@@ -37,11 +37,11 @@ export function ResultProvider({ children }: { children: React.ReactNode }) {
       setIsError(false);
       if (search) {
         api.getSearchResult(search, pageForApi).then((result) => {
-          setRequestResult(result.foods, result.page.totalPages);
+          setRequestResult(result.magazines, result.page.totalPages);
         });
       } else {
         api.getAllList(pageForApi).then((result) => {
-          setRequestResult(result.foods, result.page.totalPages);
+          setRequestResult(result.magazines, result.page.totalPages);
         });
       }
     } catch (e) {

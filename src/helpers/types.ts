@@ -1,36 +1,30 @@
 import React from 'react';
 
-export type FoodItem = {
-  alcoholicBeverage: boolean;
-  beverage: boolean;
-  dessert: boolean;
-  earthlyOrigin: boolean;
-  fruit: boolean;
-  herbOrSpice: boolean;
-  juice: boolean;
-  name: string;
-  sauce: boolean;
-  soup: boolean;
-  tea: boolean;
+export type MagazineItem = {
   uid: string;
-};
-
-export type FoodKeyTranslation = {
-  [key: string]: string;
+  title: string;
+  publishedYear: number | null;
+  publishedMonth: number | null;
+  publishedDay: number | null;
+  coverYear: number | null;
+  coverMonth: number | null;
+  coverDay: number | null;
+  numberOfPages: number | null;
+  issueNumber: string | null;
 };
 
 export type ResultsContext = {
   isLoading: boolean;
   isError: boolean;
   pages: number;
-  items: FoodItem[];
+  items: MagazineItem[];
   fetchData: ({ search, page }: { search?: string; page: number }) => void;
 };
 
 export type ErrorBoundaryProps = { fallback: React.ReactNode; children: React.ReactNode };
 
 export type ResultsProps = {
-  data: FoodItem[];
+  data: MagazineItem[];
   isLoading: boolean;
   isError: boolean;
 };

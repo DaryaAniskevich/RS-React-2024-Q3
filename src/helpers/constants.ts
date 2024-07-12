@@ -1,19 +1,17 @@
 export const localStorageSearchValue = 'searchValue';
 
-export const apiUrl = 'https://stapi.co/api/v1/rest/food';
-export const apiUrlSearch = 'https://stapi.co/api/v1/rest/food/search';
+export const apiUrl = 'https://stapi.co/api/v1/rest/magazine';
+export const apiUrlSearch = `${apiUrl}/search`;
 
-export const foodKeyTranslation = {
+export const magazineKeyTranslation = {
   alcoholicBeverage: 'Alcoholic Beverage',
-  beverage: 'Beverage',
-  dessert: 'Dessert',
-  earthlyOrigin: 'Earthly origin',
-  fruit: 'Fruit',
-  herbOrSpice: 'Herb or spice',
-  juice: 'Juice',
-  sauce: 'Sauce',
-  soup: 'Soup',
-  tea: 'Tea',
+  publishedYear: 'Year of publication',
+  publishedMonth: 'Month of publication',
+  publishedDay: 'Day of publication',
+  coverYear: 'Cover of year',
+  coverDay: 'Month of year',
+  numberOfPages: 'Number of pages',
+  issueNumber: 'Number of issue',
 };
 
 export const defaultPage = 1;

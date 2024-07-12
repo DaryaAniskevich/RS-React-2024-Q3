@@ -3,12 +3,12 @@ import { useParams } from 'react-router-dom';
 import api from '../api/api';
 import Loader from '../components/common/Loader';
 import ErrorMessage from '../components/common/ErrorMessage';
-import { FoodItem } from '../helpers/types';
+import { MagazineItem } from '../helpers/types';
 
 function Details() {
   const { uid } = useParams();
 
-  const [data, setData] = useState<FoodItem | null>(null);
+  const [data, setData] = useState<MagazineItem | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
@@ -20,7 +20,7 @@ function Details() {
 
         const result = await api.getOneProduct(id as string);
 
-        setData(result?.food || null);
+        setData(result?.magazine || null);
       } catch (e) {
         setIsError(true);
       } finally {
