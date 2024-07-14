@@ -1,33 +1,21 @@
-import React from 'react';
-import { FoodItem, FoodKeyTranslation } from '../../helpers/types';
-import { foodKeyTranslation } from '../../helpers/constants';
+import { NavLink } from 'react-router-dom';
+import { MagazineItem } from '../../helpers/types';
+import { magazineKeyTranslation, PATHS } from '../../helpers/constants';
 
-export default class ListItem extends React.PureComponent<{ food: FoodItem }> {
-  render() {
-    const { food } = this.props;
-    const { name } = food;
+function ListItem({ magazine, currentPage }: { magazine: MagazineItem; currentPage: number }) {
+  const { title, publishedYear, numberOfPages, uid } = magazine;
 
-    const type = Object.entries(food)
-      .filter(([key, value]) => {
-        if (typeof value === 'boolean' && value) return [key, value];
-        return null;
-      })
-      .map(([key]) => (foodKeyTranslation as FoodKeyTranslation)[key]);
-
-    return (
-      <li className="list-item">
-        <span className="list-item__name">Name: {name}</span>
+  return (
+    <li className="list-item">
+      <NavLink to={`${PATHS.DETAILS_PAGE}${uid}?page=${currentPage}`}>
+        <span className="list-item__name">Name: {title}</span>
         <span className="list-item__type">
-          Type:{' '}
-          {type.length
-            ? type.reduce(
-                (acc: string, item, index, arr) =>
-                  acc + item + (index < arr.length - 1 ? ', ' : ''),
-                '',
-              )
-            : 'No info'}
+          {magazineKeyTranslation.publishedYear}: {publishedYear ?? 'No data'},{' '}
+          {magazineKeyTranslation.numberOfPages}: {numberOfPages ?? 'No data'}
         </span>
-      </li>
-    );
-  }
+      </NavLink>
+    </li>
+  );
 }
+
+export default ListItem;

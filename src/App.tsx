@@ -1,14 +1,9 @@
-import React from 'react';
+import { RouterProvider } from 'react-router-dom';
 import './App.css';
-import Main from './pages/main';
-import ErrorBoundary from './components/common/ErrorBoundary';
+import router from './helpers/router';
 
-export default class App extends React.Component {
-  render() {
-    return (
-      <ErrorBoundary fallback={<div>Something went wrong</div>}>
-        <Main />
-      </ErrorBoundary>
-    );
-  }
+function App() {
+  return <RouterProvider router={router} />;
 }
+
+export default App;

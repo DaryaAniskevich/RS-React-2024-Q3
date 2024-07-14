@@ -1,40 +1,33 @@
-import React from 'react';
-import { localStorageSearchValue } from '../../helpers/constants';
+import { ChangeEvent, useContext } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import useLocalStorageSearchValue from '../../helpers/hooks';
+import { ResultContext } from '../../context/resultContext';
+import { defaultPage } from '../../helpers/constants';
 
-export default class Search extends React.Component<Record<string, never>, { inputValue: string }> {
-  constructor(props: Record<string, never>) {
-    super(props);
-    this.state = {
-      inputValue: '',
-    };
-  }
+function Search() {
+  const [, setSearchParams] = useSearchParams();
 
-  componentDidMount(): void {
-    const localStorageValue = localStorage.getItem(localStorageSearchValue);
-    if (localStorageValue) {
-      this.setState({ inputValue: localStorageValue });
-    }
-  }
+  const { searchValue, setSearchValue, savedSearchValueInLS } = useLocalStorageSearchValue();
+  const { fetchData } = useContext(ResultContext);
 
-  handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    this.setState({ inputValue: event.target.value });
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(event.target.value);
   };
 
-  handleSubmit = () => {
-    const { inputValue } = this.state;
-    localStorage.setItem(localStorageSearchValue, inputValue);
-    window.dispatchEvent(new Event('storage'));
+  const handleSubmit = () => {
+    setSearchParams({ page: defaultPage.toString() });
+    savedSearchValueInLS();
+    fetchData({ search: searchValue, page: defaultPage });
   };
 
-  render() {
-    const { inputValue } = this.state;
-    return (
-      <div className="search">
-        <input value={inputValue} onChange={this.handleChange} />
-        <button type="submit" onClick={this.handleSubmit} className="button-search">
-          Search
-        </button>
-      </div>
-    );
-  }
+  return (
+    <div className="search">
+      <input value={searchValue} onChange={handleChange} />
+      <button type="submit" onClick={handleSubmit} className="button-search">
+        Search
+      </button>
+    </div>
+  );
 }
+
+export default Search;
