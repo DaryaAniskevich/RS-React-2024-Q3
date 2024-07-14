@@ -25,7 +25,7 @@ function Main() {
 
   return (
     <main className="container">
-      <button type="button" onClick={addError} className="button-boundary">
+      <button type="button" onClick={addError} className="button-boundary" aria-label="Check Error">
         Check Error Boundary
       </button>
       <div className="main">
