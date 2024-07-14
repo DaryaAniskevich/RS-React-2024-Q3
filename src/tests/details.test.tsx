@@ -29,7 +29,7 @@ describe('Details card render', () => {
   it('should show loader while fetching data', () => {
     render(
       <BrowserRouter>
-        <DetailsCard data={null} isLoading isError={false} />
+        <DetailsCard data={null} isLoading={false} isError={false} />
       </BrowserRouter>,
     );
 
