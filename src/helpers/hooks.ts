@@ -13,14 +13,9 @@ const useLocalStorageSearchValue = () => {
     }
   }, []);
 
-  useEffect(
-    () => () => {
-      localStorage.setItem(localStorageSearchValue, searchValue);
-    },
-    [searchValue],
-  );
+  const savedSearchValueInLS = () => localStorage.setItem(localStorageSearchValue, searchValue);
 
-  return { searchValue, setSearchValue };
+  return { searchValue, setSearchValue, savedSearchValueInLS };
 };
 
 export default useLocalStorageSearchValue;

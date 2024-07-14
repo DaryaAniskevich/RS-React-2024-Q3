@@ -7,7 +7,7 @@ import { defaultPage } from '../../helpers/constants';
 function Search() {
   const [, setSearchParams] = useSearchParams();
 
-  const { searchValue, setSearchValue } = useLocalStorageSearchValue();
+  const { searchValue, setSearchValue, savedSearchValueInLS } = useLocalStorageSearchValue();
   const { fetchData } = useContext(ResultContext);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -16,6 +16,7 @@ function Search() {
 
   const handleSubmit = () => {
     setSearchParams({ page: defaultPage.toString() });
+    savedSearchValueInLS();
     fetchData({ search: searchValue, page: defaultPage });
   };
 
