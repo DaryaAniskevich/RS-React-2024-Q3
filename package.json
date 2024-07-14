@@ -12,15 +12,11 @@
     "preview": "vite preview",
     "prepare": "husky install",
     "test": "vitest",
-    "test:coverage": "npx vitest --coverage"
+    "test:coverage": "npx vitest --coverage",
+    "pre-push": "npm run test"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": "npx eslint"
-  },
-  "husky": {
-    "hooks": {
-      "pre-push": "npm run test"
-    }
   },
   "dependencies": {
     "react": "^18.3.1",
