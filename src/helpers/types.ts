@@ -75,3 +75,5 @@ export type DetailsCardProps = {
   isLoading: boolean;
   isError: boolean;
 };
+
+export type ErrorBoundaryLayoutProps = { children?: React.ReactNode };
