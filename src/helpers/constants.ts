@@ -1,4 +1,5 @@
 export const localStorageSearchValue = 'searchValue';
+export const localStorageTheme = 'theme';
 
 export const apiUrl = 'https://stapi.co/api/v1/rest/magazine';
 export const apiUrlSearch = `${apiUrl}/search`;
