@@ -13,7 +13,7 @@
     "prepare": "husky install",
     "test": "vitest",
     "test:coverage": "npx vitest --coverage",
-    "pre-push": "npm run test"
+    "pre-push": "npm run test && git push"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": "npx eslint"
