@@ -1,3 +1,9 @@
+header {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
 input {
   padding: 10px 20px;
   border: 1px solid #ccc;
@@ -10,16 +16,29 @@ button {
   font-weight: 500;
   font-size: 14px;
 }
-.button-boundary {
-  border: 1px solid #e15a50;
-  background-color: #e15a50;
-  margin-left: auto;
-  display: block;
-  margin-bottom: 20px;
+
+.button-theme {
+  display: flex;
 }
-.button-search {
+.button-search,
+.button-theme {
+  font-weight: 700;
+}
+
+.button-search.light,
+.button-theme.light,
+.button-pagination.light {
   border: 1px solid #7acb7f;
   background-color: #7acb7f;
+  color: #fff;
+}
+
+.button-search.dark,
+.button-theme.dark,
+.button-pagination.dark {
+  border: 1px solid #fff;
+  background-color: #fff;
+  color: #529957;
 }
 .search {
   display: flex;
@@ -34,13 +53,20 @@ button {
   aspect-ratio: 1;
   border-radius: 50%;
   padding: 1px;
-  background: conic-gradient(#0000 10%, #7acb7f) content-box;
   -webkit-mask: repeating-conic-gradient(#0000 0deg, #000 1deg 20deg, #0000 21deg 36deg),
     radial-gradient(farthest-side, #0000 calc(100% - var(--b) - 1px), #000 calc(100% - var(--b)));
   -webkit-mask-composite: destination-in;
   mask-composite: intersect;
   animation: l4 1s infinite steps(10);
 }
+
+.loader.light {
+  background: conic-gradient(#0000 10%, #7acb7f) content-box;
+}
+.loader.dark {
+  background: conic-gradient(#0000 10%, #fff) content-box;
+}
+
 @keyframes l4 {
   to {
     transform: rotate(1turn);
@@ -81,7 +107,6 @@ button {
   justify-content: center;
   gap: 20px;
   align-items: center;
-  padding: 20px;
 }
 .not-found h1 {
   text-align: center;
@@ -90,12 +115,20 @@ button {
   max-width: 100vw;
 }
 .not-found a {
-  background-color: #7acb7f;
-  color: #fff;
   padding: 10px 20px;
   border-radius: 10px;
   text-decoration: none;
   font-size: 18px;
+  font-weight: 700;
+}
+
+.not-found a.light {
+  background-color: #7acb7f;
+  color: #fff;
+}
+.not-found a.dark {
+  background-color: #fff;
+  color: #529957;
 }
 
 .pagination {
@@ -106,14 +139,13 @@ button {
   font-size: 18px;
 }
 .button-pagination {
-  border: 1px solid #7acb7f;
-  background-color: #7acb7f;
-  color: #fff;
   padding: 10px;
   border-radius: 10px;
   text-decoration: none;
   font-size: 12px;
+  font-weight: 700;
 }
+
 .button-pagination:disabled {
   opacity: 0.5;
   cursor: not-allowed;
@@ -147,9 +179,6 @@ button {
 }
 
 .details .button-close {
-  border: 1px solid #fff;
-  background-color: #fff;
-  color: #7acb7f;
   padding: 10px;
   border-radius: 10px;
   text-decoration: none;
@@ -157,7 +186,20 @@ button {
   position: absolute;
   top: 10px;
   right: 10px;
+  font-weight: 700;
 }
+
+.details .button-close.light {
+  border: 1px solid #fff;
+  background-color: #fff;
+  color: #7acb7f;
+}
+.details .button-close.dark {
+  border: 1px solid #7acb7f;
+  background-color: #7acb7f;
+  color: #fff;
+}
+
 .details .button-close:hover {
   background-color: #7acb7f;
   color: #fff;

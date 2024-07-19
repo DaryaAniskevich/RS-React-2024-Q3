@@ -23,3 +23,6 @@ export const PATHS = {
   DETAILS_PAGE: '/details/',
   NOT_FOUND: '*',
 };
+
+export const LIGHT = 'light';
+export const DARK = 'dark';
