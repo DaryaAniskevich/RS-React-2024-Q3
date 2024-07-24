@@ -15,6 +15,22 @@ export type MagazineItem = {
   issueNumber: string | null;
 };
 
+export type MagazineListResponse = {
+  page: {
+    pageNumber: number;
+    pageSize: number;
+    numberOfElements: number;
+    totalElements: number;
+    totalPages: number;
+    firstPage: boolean;
+    lastPage: boolean;
+  };
+  sort: {
+    clauses: [];
+  };
+  magazines: MagazineItem[];
+};
+
 type PublisherItem = {
   broadcaster: boolean;
   collectibleCompany: boolean;
@@ -58,7 +74,6 @@ export type ResultsContext = {
   isError: boolean;
   pages: number;
   currentPage: number;
-  items: MagazineItem[];
   fetchData: ({ search, page }: { search?: string; page: number }) => void;
 };
 

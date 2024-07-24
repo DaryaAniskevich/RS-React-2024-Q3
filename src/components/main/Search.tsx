@@ -8,7 +8,7 @@ import { ThemeContext } from '../../context/themeContext';
 function Search() {
   const [, setSearchParams] = useSearchParams();
 
-  const { searchValue, setSearchValue, savedSearchValueInLS } = useLocalStorageSearchValue();
+  const { searchValue, setSearchValue, saveSearchValueInLS } = useLocalStorageSearchValue();
   const { fetchData } = useContext(ResultContext);
   const { theme } = useContext(ThemeContext);
 
@@ -16,9 +16,9 @@ function Search() {
     setSearchValue(event.target.value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setSearchParams({ page: defaultPage.toString() });
-    savedSearchValueInLS();
+    saveSearchValueInLS();
     fetchData({ search: searchValue, page: defaultPage });
   };
 

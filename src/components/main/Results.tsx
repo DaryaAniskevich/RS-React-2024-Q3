@@ -1,4 +1,6 @@
 import { useContext } from 'react';
+import { useSelector } from 'react-redux';
+
 import { useSearchParams } from 'react-router-dom';
 import Loader from '../common/Loader';
 import { ResultContext } from '../../context/resultContext';
@@ -6,11 +8,16 @@ import Pagination from '../common/Pagination';
 import ErrorMessage from '../common/ErrorMessage';
 import CardList from './CardList';
 import useLocalStorageSearchValue from '../../helpers/hooks';
+import selectSearchResultData from '../../store/selectors';
+import { MagazineListResponse } from '../../helpers/types';
 
 function Results() {
-  const { items, isLoading, isError, pages, currentPage, fetchData } = useContext(ResultContext);
+  const { pages, currentPage, isLoading, isError, fetchData } = useContext(ResultContext);
 
   const [, setSearchParams] = useSearchParams();
+
+  const searchData: MagazineListResponse | undefined = useSelector(selectSearchResultData);
+
   const { searchValue } = useLocalStorageSearchValue();
 
   const changePage = (page: number) => {
@@ -27,7 +34,7 @@ function Results() {
   } else {
     content = (
       <>
-        <CardList items={items} currentPage={currentPage} />
+        <CardList items={searchData ? searchData?.magazines : []} currentPage={currentPage} />
         <Pagination pages={pages} currentPage={currentPage} changePage={changePage} />
       </>
     );
