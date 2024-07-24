@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import DetailsCard from '../components/details/DetailsCard';
-import { useGetOneProductQuery } from '../store/services/magazinesApi';
+import { useGetOneProductQuery } from '../store/services/oneProductApi';
 
 function Details() {
   const { uid } = useParams();

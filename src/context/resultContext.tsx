@@ -4,7 +4,7 @@ import { ResultsContext } from '../helpers/types';
 import useLocalStorageSearchValue from '../helpers/hooks';
 import getCurrentPage from '../helpers/utils';
 import { defaultPage } from '../helpers/constants';
-import { useGetSearchResultMutation } from '../store/services/magazinesApi';
+import { useGetSearchResultMutation } from '../store/services/magazinesSearchApi';
 
 export const ResultContext = createContext<ResultsContext>({
   isLoading: false,

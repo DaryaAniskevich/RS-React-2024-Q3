@@ -1,10 +1,10 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 import { apiUrl, defaultPageSize } from '../../helpers/constants';
-import { MagazineListResponse, OneProductResponse } from '../../helpers/types';
+import { MagazineListResponse } from '../../helpers/types';
 
-export const magazinesApi = createApi({
-  reducerPath: 'magazinesApi',
+export const magazinesSearchApi = createApi({
+  reducerPath: 'magazinesSearchApi',
   baseQuery: fetchBaseQuery({ baseUrl: apiUrl }),
   endpoints: (builder) => ({
     getAllList: builder.query<MagazineListResponse, string>({
@@ -24,13 +24,7 @@ export const magazinesApi = createApi({
         }),
       }),
     }),
-    getOneProduct: builder.query<OneProductResponse, string>({
-      query: (id) => ({
-        url: `?uid=${id}`,
-      }),
-    }),
   }),
 });
 
-export const { useGetAllListQuery, useGetSearchResultMutation, useGetOneProductQuery } =
-  magazinesApi;
+export const { useGetAllListQuery, useGetSearchResultMutation } = magazinesSearchApi;

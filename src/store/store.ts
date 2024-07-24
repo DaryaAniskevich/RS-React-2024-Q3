@@ -1,12 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
-import { magazinesApi } from './services/magazinesApi';
+import { oneProductApi } from './services/oneProductApi';
+import { magazinesSearchApi } from './services/magazinesSearchApi';
 
 const store = configureStore({
   reducer: {
-    [magazinesApi.reducerPath]: magazinesApi.reducer,
+    [magazinesSearchApi.reducerPath]: magazinesSearchApi.reducer,
+    [oneProductApi.reducerPath]: oneProductApi.reducer,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(magazinesApi.middleware),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(magazinesSearchApi.middleware, oneProductApi.middleware),
 });
 
 setupListeners(store.dispatch);
