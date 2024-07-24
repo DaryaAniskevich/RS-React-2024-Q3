@@ -1,38 +1,18 @@
-import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import api from '../api/api';
-import { MagazineDetailsItem } from '../helpers/types';
 import DetailsCard from '../components/details/DetailsCard';
+import { useGetOneProductQuery } from '../store/services/magazinesApi';
 
 function Details() {
   const { uid } = useParams();
 
-  const [data, setData] = useState<MagazineDetailsItem | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
+  const { data, isFetching, error } = useGetOneProductQuery(uid as string, {
+    refetchOnMountOrArgChange: true,
+    skip: !uid,
+  });
 
-  useEffect(() => {
-    const fetchData = async (id: string) => {
-      try {
-        setIsError(false);
-        setIsLoading(true);
-
-        const result = await api.getOneProduct(id as string);
-
-        setData(result?.magazine || null);
-      } catch (e) {
-        setIsError(true);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    if (uid) {
-      fetchData(uid);
-    }
-  }, [uid]);
-
-  return <DetailsCard data={data} isLoading={isLoading} isError={isError} />;
+  return (
+    <DetailsCard data={data?.magazine || null} isLoading={isFetching} isError={Boolean(error)} />
+  );
 }
 
 export default Details;

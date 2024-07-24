@@ -69,6 +69,10 @@ export type MagazineDetailsItem = MagazineItem & {
   publishers: PublisherItem[];
 };
 
+export type OneProductResponse = {
+  magazine: MagazineDetailsItem;
+};
+
 export type ResultsContext = {
   isLoading: boolean;
   isError: boolean;
