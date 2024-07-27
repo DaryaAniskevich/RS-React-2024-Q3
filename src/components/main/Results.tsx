@@ -10,6 +10,7 @@ import CardList from './CardList';
 import useLocalStorageSearchValue from '../../helpers/hooks';
 import { selectSearchResultData } from '../../store/selectors';
 import { MagazineListResponse } from '../../helpers/types';
+import ActionsWithSelectedItems from './ActionsWithSelectedItems';
 
 function Results() {
   const { pages, currentPage, isLoading, isError, fetchData } = useContext(ResultContext);
@@ -36,6 +37,7 @@ function Results() {
       <>
         <CardList items={searchData ? searchData?.magazines : []} currentPage={currentPage} />
         <Pagination pages={pages} currentPage={currentPage} changePage={changePage} />
+        <ActionsWithSelectedItems />
       </>
     );
   }

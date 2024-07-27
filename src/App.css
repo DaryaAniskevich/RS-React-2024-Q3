@@ -21,13 +21,15 @@ button {
   display: flex;
 }
 .button-search,
-.button-theme {
+.button-theme,
+.button-actions {
   font-weight: 700;
 }
 
 .button-search.light,
 .button-theme.light,
-.button-pagination.light {
+.button-pagination.light,
+.button-actions.light {
   border: 1px solid #7acb7f;
   background-color: #7acb7f;
   color: #fff;
@@ -35,7 +37,8 @@ button {
 
 .button-search.dark,
 .button-theme.dark,
-.button-pagination.dark {
+.button-pagination.dark,
+.button-actions.dark {
   border: 1px solid #fff;
   background-color: #fff;
   color: #529957;
@@ -207,4 +210,11 @@ button {
 .details .button-close:hover {
   background-color: #7acb7f;
   color: #fff;
+}
+
+.actions {
+  margin-top: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }

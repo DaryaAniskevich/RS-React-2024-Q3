@@ -12,14 +12,18 @@ const selectedItemsSlice = createSlice({
       state.selectedItems.push(action.payload);
     },
 
-    removeSelectedItems: (state, action) => {
+    removeSelectedItem: (state, action) => {
       state.selectedItems = state.selectedItems.filter((item) => item.uid !== action.payload.uid);
+    },
+
+    removeAllSelected: (state) => {
+      state.selectedItems = [];
     },
   },
 });
 
 const { actions, reducer: selectedItemsReducer } = selectedItemsSlice;
 
-export const { addSelectedItems, removeSelectedItems } = actions;
+export const { addSelectedItems, removeSelectedItem, removeAllSelected } = actions;
 
 export default selectedItemsReducer;

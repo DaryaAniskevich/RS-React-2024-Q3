@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { MagazineItem } from '../../helpers/types';
 import ListItem from './ListItem';
-import { addSelectedItems, removeSelectedItems } from '../../store/slices/selectedItemsSlice';
+import { addSelectedItems, removeSelectedItem } from '../../store/slices/selectedItemsSlice';
 
 function CardList({ items, currentPage }: { items: MagazineItem[]; currentPage: number }) {
   const dispatch = useDispatch();
@@ -11,7 +11,7 @@ function CardList({ items, currentPage }: { items: MagazineItem[]; currentPage: 
     if (isChecked) {
       dispatch(addSelectedItems(magazine));
     } else {
-      dispatch(removeSelectedItems(magazine));
+      dispatch(removeSelectedItem(magazine));
     }
   };
 
