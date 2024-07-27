@@ -8,7 +8,7 @@ import Pagination from '../common/Pagination';
 import ErrorMessage from '../common/ErrorMessage';
 import CardList from './CardList';
 import useLocalStorageSearchValue from '../../helpers/hooks';
-import selectSearchResultData from '../../store/selectors';
+import { selectSearchResultData } from '../../store/selectors';
 import { MagazineListResponse } from '../../helpers/types';
 
 function Results() {

@@ -25,5 +25,6 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'react-compiler/react-compiler': 'error',
     '@typescript-eslint/no-explicit-any': 'error',
+    'no-param-reassign': ['error', { props: false }],
   },
 };

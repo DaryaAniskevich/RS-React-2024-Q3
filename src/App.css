@@ -87,6 +87,10 @@ button {
   padding-left: 0;
 }
 
+.list-item {
+  display: flex;
+  gap: 10px;
+}
 .list-item a {
   display: flex;
   flex-direction: column;
