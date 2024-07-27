@@ -2,7 +2,7 @@ import { createContext, useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { ResultsContext } from '../helpers/types';
 import useLocalStorageSearchValue from '../helpers/hooks';
-import getCurrentPage from '../helpers/utils';
+import { getCurrentPage } from '../helpers/utils';
 import { defaultPage } from '../helpers/constants';
 import { useGetSearchResultMutation } from '../store/services/magazinesSearchApi';
 

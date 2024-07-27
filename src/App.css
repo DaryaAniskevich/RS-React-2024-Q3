@@ -25,6 +25,11 @@ button {
 .button-actions {
   font-weight: 700;
 }
+.button-actions-csv {
+  display: flex;
+  text-decoration: none;
+  padding: 10px 20px;
+}
 
 .button-search.light,
 .button-theme.light,
@@ -80,6 +85,7 @@ button {
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 }
 
 .list {
@@ -214,7 +220,18 @@ button {
 
 .actions {
   margin-top: 20px;
+  padding: 10px 50px;
   display: flex;
   align-items: center;
   gap: 10px;
+  position: sticky;
+  bottom: 0;
+  left: 0;
+}
+
+.actions.light {
+  background-color: #cbedcd;
+}
+.actions.dark {
+  background-color: #323232;
 }

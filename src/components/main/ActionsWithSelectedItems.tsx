@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ThemeContext } from '../../context/themeContext';
 import { selectedItemsSelector } from '../../store/selectors';
 import { removeAllSelected } from '../../store/slices/selectedItemsSlice';
+import { convertToCSV } from '../../helpers/utils';
 
 function ActionsWithSelectedItems() {
   const { theme } = useContext(ThemeContext);
@@ -10,24 +11,31 @@ function ActionsWithSelectedItems() {
   const dispatch = useDispatch();
   const { selectedItems } = useSelector(selectedItemsSelector);
 
+  const numberOfSelectedItems = selectedItems.length;
+
   const unselectAll = () => {
     dispatch(removeAllSelected());
   };
 
-  const numberOfSelectedItems = selectedItems.length;
-  return numberOfSelectedItems > 0 ? (
-    <div className="actions">
+  const csvData = numberOfSelectedItems > 0 ? convertToCSV(selectedItems) : '';
+  const csvFile = URL.createObjectURL(new Blob([csvData], { type: 'text/csv;charset=utf-8;' }));
+
+  return (
+    <div className={`${theme} actions`}>
       <span>
         {numberOfSelectedItems} {numberOfSelectedItems === 1 ? 'item' : 'items'} selected{' '}
       </span>
       <button type="button" className={`${theme} button-actions`} onClick={unselectAll}>
         Unselect all
       </button>
-      <button type="button" className={`${theme} button-actions`}>
+      <a
+        href={csvFile}
+        download={`${numberOfSelectedItems}_magazines.csv`}
+        className={`${theme} button-actions button-actions-csv`}>
         Download
-      </button>
+      </a>
     </div>
-  ) : null;
+  );
 }
 
 export default ActionsWithSelectedItems;

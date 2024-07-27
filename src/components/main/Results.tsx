@@ -8,7 +8,7 @@ import Pagination from '../common/Pagination';
 import ErrorMessage from '../common/ErrorMessage';
 import CardList from './CardList';
 import useLocalStorageSearchValue from '../../helpers/hooks';
-import { selectSearchResultData } from '../../store/selectors';
+import { selectedItemsSelector, selectSearchResultData } from '../../store/selectors';
 import { MagazineListResponse } from '../../helpers/types';
 import ActionsWithSelectedItems from './ActionsWithSelectedItems';
 
@@ -20,6 +20,9 @@ function Results() {
   const searchData: MagazineListResponse | undefined = useSelector(selectSearchResultData);
 
   const { searchValue } = useLocalStorageSearchValue();
+  const { selectedItems } = useSelector(selectedItemsSelector);
+
+  const numberOfSelectedItems = selectedItems.length;
 
   const changePage = (page: number) => {
     setSearchParams({ page: page.toString() });
@@ -37,7 +40,7 @@ function Results() {
       <>
         <CardList items={searchData ? searchData?.magazines : []} currentPage={currentPage} />
         <Pagination pages={pages} currentPage={currentPage} changePage={changePage} />
-        <ActionsWithSelectedItems />
+        {numberOfSelectedItems > 0 && <ActionsWithSelectedItems />}
       </>
     );
   }
