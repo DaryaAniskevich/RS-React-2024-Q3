@@ -13,9 +13,9 @@ const useLocalStorageSearchValue = () => {
     }
   }, []);
 
-  const savedSearchValueInLS = () => localStorage.setItem(localStorageSearchValue, searchValue);
+  const saveSearchValueInLS = () => localStorage.setItem(localStorageSearchValue, searchValue);
 
-  return { searchValue, setSearchValue, savedSearchValueInLS };
+  return { searchValue, setSearchValue, saveSearchValueInLS };
 };
 
 export default useLocalStorageSearchValue;

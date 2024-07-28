@@ -1,5 +1,10 @@
+import { useContext } from 'react';
+import { ThemeContext } from '../../context/themeContext';
+
 function Loader() {
-  return <div className="loader" data-testid="loader" />;
+  const { theme } = useContext(ThemeContext);
+
+  return <div className={`${theme} loader`} data-testid="loader" />;
 }
 
 export default Loader;

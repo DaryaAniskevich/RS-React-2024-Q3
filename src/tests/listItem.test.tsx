@@ -1,8 +1,10 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
 import ListItem from '../components/main/ListItem';
 import { defaultPage, magazineKeyTranslation, PATHS } from '../helpers/constants';
 import { ResultProvider } from '../context/resultContext';
+import store from '../store/store';
 
 const currentPage = defaultPage;
 const title = 'Test Magazine 1';
@@ -25,11 +27,13 @@ const item = {
 describe('Card List item render', () => {
   it('should render relevant card data', () => {
     render(
-      <BrowserRouter>
-        <ResultProvider>
-          <ListItem magazine={item} currentPage={currentPage} />
-        </ResultProvider>
-      </BrowserRouter>,
+      <Provider store={store}>
+        <BrowserRouter>
+          <ResultProvider>
+            <ListItem magazine={item} currentPage={currentPage} selectItem={() => {}} />
+          </ResultProvider>
+        </BrowserRouter>
+      </Provider>,
     );
 
     const titleElement = screen.getByText(`Name: ${title}`);
@@ -42,11 +46,13 @@ describe('Card List item render', () => {
 
   it('should open details', () => {
     render(
-      <BrowserRouter>
-        <ResultProvider>
-          <ListItem magazine={item} currentPage={currentPage} />
-        </ResultProvider>
-      </BrowserRouter>,
+      <Provider store={store}>
+        <BrowserRouter>
+          <ResultProvider>
+            <ListItem magazine={item} currentPage={currentPage} selectItem={() => {}} />
+          </ResultProvider>
+        </BrowserRouter>
+      </Provider>,
     );
 
     const card = screen.getByRole('link');

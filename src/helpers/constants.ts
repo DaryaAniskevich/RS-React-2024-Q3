@@ -1,4 +1,5 @@
 export const localStorageSearchValue = 'searchValue';
+export const localStorageTheme = 'theme';
 
 export const apiUrl = 'https://stapi.co/api/v1/rest/magazine';
 export const apiUrlSearch = `${apiUrl}/search`;
@@ -23,3 +24,6 @@ export const PATHS = {
   DETAILS_PAGE: '/details/',
   NOT_FOUND: '*',
 };
+
+export const LIGHT = 'light';
+export const DARK = 'dark';

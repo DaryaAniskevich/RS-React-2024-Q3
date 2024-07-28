@@ -3,27 +3,29 @@ import { useSearchParams } from 'react-router-dom';
 import useLocalStorageSearchValue from '../../helpers/hooks';
 import { ResultContext } from '../../context/resultContext';
 import { defaultPage } from '../../helpers/constants';
+import { ThemeContext } from '../../context/themeContext';
 
 function Search() {
   const [, setSearchParams] = useSearchParams();
 
-  const { searchValue, setSearchValue, savedSearchValueInLS } = useLocalStorageSearchValue();
+  const { searchValue, setSearchValue, saveSearchValueInLS } = useLocalStorageSearchValue();
   const { fetchData } = useContext(ResultContext);
+  const { theme } = useContext(ThemeContext);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(event.target.value);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     setSearchParams({ page: defaultPage.toString() });
-    savedSearchValueInLS();
+    saveSearchValueInLS();
     fetchData({ search: searchValue, page: defaultPage });
   };
 
   return (
     <div className="search">
       <input value={searchValue} onChange={handleChange} />
-      <button type="submit" onClick={handleSubmit} className="button-search">
+      <button type="submit" onClick={handleSubmit} className={`${theme} button-search`}>
         Search
       </button>
     </div>

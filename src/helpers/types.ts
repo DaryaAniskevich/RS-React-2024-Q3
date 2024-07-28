@@ -15,6 +15,22 @@ export type MagazineItem = {
   issueNumber: string | null;
 };
 
+export type MagazineListResponse = {
+  page: {
+    pageNumber: number;
+    pageSize: number;
+    numberOfElements: number;
+    totalElements: number;
+    totalPages: number;
+    firstPage: boolean;
+    lastPage: boolean;
+  };
+  sort: {
+    clauses: [];
+  };
+  magazines: MagazineItem[];
+};
+
 type PublisherItem = {
   broadcaster: boolean;
   collectibleCompany: boolean;
@@ -53,12 +69,15 @@ export type MagazineDetailsItem = MagazineItem & {
   publishers: PublisherItem[];
 };
 
+export type OneProductResponse = {
+  magazine: MagazineDetailsItem;
+};
+
 export type ResultsContext = {
   isLoading: boolean;
   isError: boolean;
   pages: number;
   currentPage: number;
-  items: MagazineItem[];
   fetchData: ({ search, page }: { search?: string; page: number }) => void;
 };
 
@@ -75,3 +94,5 @@ export type DetailsCardProps = {
   isLoading: boolean;
   isError: boolean;
 };
+
+export type ErrorBoundaryLayoutProps = { children?: React.ReactNode };
