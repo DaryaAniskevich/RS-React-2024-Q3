@@ -18,7 +18,10 @@ function ActionsWithSelectedItems() {
   };
 
   const csvData = numberOfSelectedItems > 0 ? convertToCSV(selectedItems) : '';
-  const csvFile = URL.createObjectURL(new Blob([csvData], { type: 'text/csv;charset=utf-8;' }));
+  const csvFile =
+    typeof URL.createObjectURL === 'function'
+      ? URL.createObjectURL(new Blob([csvData], { type: 'text/csv;charset=utf-8;' }))
+      : '';
 
   return (
     <div className={`${theme} actions`}>

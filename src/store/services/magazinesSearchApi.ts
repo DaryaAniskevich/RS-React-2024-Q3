@@ -7,11 +7,6 @@ export const magazinesSearchApi = createApi({
   reducerPath: 'magazinesSearchApi',
   baseQuery: fetchBaseQuery({ baseUrl: apiUrl }),
   endpoints: (builder) => ({
-    getAllList: builder.query<MagazineListResponse, string>({
-      query: (page) => ({
-        url: `/search?pageNumber=${page}&pageSize=${defaultPageSize}`,
-      }),
-    }),
     getSearchResult: builder.mutation<MagazineListResponse, { search: string; page: string }>({
       query: ({ search, page }) => ({
         url: `/search?pageNumber=${page}&pageSize=${defaultPageSize}`,
@@ -27,4 +22,4 @@ export const magazinesSearchApi = createApi({
   }),
 });
 
-export const { useGetAllListQuery, useGetSearchResultMutation } = magazinesSearchApi;
+export const { useGetSearchResultMutation } = magazinesSearchApi;

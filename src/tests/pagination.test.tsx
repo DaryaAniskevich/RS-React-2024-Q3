@@ -1,8 +1,10 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
 import { ResultProvider } from '../context/resultContext';
 import Pagination from '../components/common/Pagination';
 import { currentPage } from './mockData';
+import store from '../store/store';
 
 describe('Pagination render', () => {
   it('should update URL on page change', () => {
@@ -15,11 +17,13 @@ describe('Pagination render', () => {
     };
 
     render(
-      <BrowserRouter>
-        <ResultProvider>
-          <Pagination pages={3} currentPage={page} changePage={changePage} />
-        </ResultProvider>
-      </BrowserRouter>,
+      <Provider store={store}>
+        <BrowserRouter>
+          <ResultProvider>
+            <Pagination pages={3} currentPage={page} changePage={changePage} />
+          </ResultProvider>
+        </BrowserRouter>
+      </Provider>,
     );
 
     const prevButtonElement = screen.getByText('Prev');
