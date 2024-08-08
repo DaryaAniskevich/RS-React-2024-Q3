@@ -4,12 +4,12 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
     "format:fix": "prettier --write .",
     "pre-commit": "lint-staged",
-    "preview": "vite preview",
     "prepare": "husky install",
     "test": "vitest",
     "test:coverage": "npx vitest --coverage",
@@ -19,6 +19,7 @@
     "*.{js,jsx,ts,tsx}": "npx eslint"
   },
   "dependencies": {
+    "@next/eslint-plugin-next": "^14.2.5",
     "@reduxjs/toolkit": "https://pkg.csb.dev/reduxjs/redux-toolkit/commit/beb818cb/@reduxjs/toolkit",
     "next": "^14.2.5",
     "react": "^18.3.1",
@@ -43,6 +44,7 @@
     "eslint": "^8.57.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-airbnb-typescript": "^18.0.0",
+    "eslint-config-next": "^14.2.5",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-jsx-a11y": "^6.9.0",
