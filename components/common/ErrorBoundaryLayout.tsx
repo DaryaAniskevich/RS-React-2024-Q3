@@ -1,5 +1,4 @@
 import { useContext } from 'react';
-// import { Outlet } from 'react-router-dom';
 import ErrorBoundary from './ErrorBoundary';
 import { ErrorBoundaryLayoutProps } from '../../helpers/types';
 import { ThemeContext } from '../../context/themeContext';
@@ -17,7 +16,6 @@ function ErrorBoundaryLayout({ children = null }: ErrorBoundaryLayoutProps) {
           Set {theme === LIGHT ? DARK : LIGHT} theme
         </ButtonGreen>
       </header>
-      {/* <Outlet /> */}
       {children && children}
     </ErrorBoundary>
   );

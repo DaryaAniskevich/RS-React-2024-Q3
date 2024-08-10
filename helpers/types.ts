@@ -74,12 +74,9 @@ export type OneProductResponse = {
 };
 
 export type ResultsContext = {
-  // isLoading: boolean;
-  // isError: boolean;
   pages: number;
   currentPage: number;
   setAllPagesFn: (pages: number) => void;
-  // fetchData: ({ search, page }: { search?: string; page: number }) => void;
 };
 
 export type ErrorBoundaryProps = { fallback: React.ReactNode; children: React.ReactNode };

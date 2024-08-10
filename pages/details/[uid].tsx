@@ -55,10 +55,6 @@ export async function getServerSideProps(context) {
   );
   const dataAll = await responseAll.json();
 
-  //   const pages = Array.from({ length: dataAll.page.totalPages }, (_, i) => i + 1).map((_page) => ({
-  //     params: { page: _page },
-  //   }));
-
   const responseDetails = await fetch(`${apiUrl}?uid=${uid}`);
 
   const dataDetails = await responseDetails.json();
@@ -67,7 +63,6 @@ export async function getServerSideProps(context) {
     props: {
       dataAll,
       dataDetails,
-      //   pages,
     },
   };
 }

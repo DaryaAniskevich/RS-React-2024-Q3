@@ -1,4 +1,3 @@
-// import { Outlet } from "react-router-dom";
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { ResultProvider } from '../context/resultContext';
