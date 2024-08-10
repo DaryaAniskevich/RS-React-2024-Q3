@@ -1,64 +1,79 @@
-// import { fireEvent, render, screen } from '@testing-library/react';
-// import { BrowserRouter } from 'react-router-dom';
-// import { Provider } from 'react-redux';
-// import ListItem from '../components/main/ListItem';
-// import { defaultPage, magazineKeyTranslation, PATHS } from '../helpers/constants';
-// import { ResultProvider } from '../context/resultContext';
-// import store from '../../store/store';
+import { render, screen } from '@testing-library/react';
+import { vi } from 'vitest';
+import type { Mock } from 'jest-mock';
+import { useRouter } from 'next/router';
 
-// const currentPage = defaultPage;
-// const title = 'Test Magazine 1';
-// const publishedYear = 1999;
-// const numberOfPages = 70;
+import ListItem from '../components/main/ListItem';
+import { defaultPage, magazineKeyTranslation } from '../helpers/constants';
+import { ResultProvider } from '../context/resultContext';
 
-// const item = {
-//   uid: '1',
-//   title,
-//   publishedYear,
-//   publishedMonth: null,
-//   publishedDay: null,
-//   coverYear: null,
-//   coverMonth: null,
-//   coverDay: null,
-//   numberOfPages,
-//   issueNumber: null,
-// };
+vi.mock('next/router', () => ({
+  useRouter: vi.fn(),
+}));
 
-// describe('Card List item render', () => {
-//   it('should render relevant card data', () => {
-//     render(
-//       <Provider store={store}>
-//         <BrowserRouter>
-//           <ResultProvider>
-//             <ListItem magazine={item} currentPage={currentPage} selectItem={() => {}} />
-//           </ResultProvider>
-//         </BrowserRouter>
-//       </Provider>,
-//     );
+const currentPage = defaultPage;
+const title = 'Test Magazine 1';
+const publishedYear = 1999;
+const numberOfPages = 70;
 
-//     const titleElement = screen.getByText(`Name: ${title}`);
-//     const typeElement = screen.getByText(
-//       `${magazineKeyTranslation.publishedYear}: ${publishedYear}, ${magazineKeyTranslation.numberOfPages}: ${numberOfPages}`,
-//     );
-//     expect(titleElement).toBeInTheDocument();
-//     expect(typeElement).toBeInTheDocument();
-//   });
+const item = {
+  uid: '1',
+  title,
+  publishedYear,
+  publishedMonth: null,
+  publishedDay: null,
+  coverYear: null,
+  coverMonth: null,
+  coverDay: null,
+  numberOfPages,
+  issueNumber: null,
+};
 
-//   it('should open details', () => {
-//     render(
-//       <Provider store={store}>
-//         <BrowserRouter>
-//           <ResultProvider>
-//             <ListItem magazine={item} currentPage={currentPage} selectItem={() => {}} />
-//           </ResultProvider>
-//         </BrowserRouter>
-//       </Provider>,
-//     );
+describe('Card List item render', () => {
+  it('should render relevant card data', () => {
+    const pushMock = vi.fn();
 
-//     const card = screen.getByRole('link');
-//     fireEvent.click(card);
-//     const { location } = window;
-//     const { pathname, search } = location;
-//     expect(pathname + search).toBe(`${PATHS.DETAILS_PAGE}${item.uid}?page=${currentPage}`);
-//   });
-// });
+    (useRouter as Mock).mockReturnValue({
+      push: pushMock,
+      query: { page: currentPage.toString() },
+    });
+
+    render(
+      <ResultProvider>
+        <ListItem magazine={item} currentPage={currentPage} />
+      </ResultProvider>,
+    );
+
+    const titleElement = screen.getByText(`Name: ${title}`);
+    const typeElement = screen.getByText(
+      `${magazineKeyTranslation.publishedYear}: ${publishedYear}, ${magazineKeyTranslation.numberOfPages}: ${numberOfPages}`,
+    );
+    expect(titleElement).toBeInTheDocument();
+    expect(typeElement).toBeInTheDocument();
+  });
+
+  it('should render relevant card data with no data message', () => {
+    const pushMock = vi.fn();
+
+    (useRouter as Mock).mockReturnValue({
+      push: pushMock,
+      query: { page: currentPage.toString() },
+    });
+
+    item.publishedYear = null;
+    item.numberOfPages = null;
+
+    render(
+      <ResultProvider>
+        <ListItem magazine={item} currentPage={currentPage} />
+      </ResultProvider>,
+    );
+
+    const titleElement = screen.getByText(`Name: ${title}`);
+    const typeElement = screen.getByText(
+      `${magazineKeyTranslation.publishedYear}: No data, ${magazineKeyTranslation.numberOfPages}: No data`,
+    );
+    expect(titleElement).toBeInTheDocument();
+    expect(typeElement).toBeInTheDocument();
+  });
+});

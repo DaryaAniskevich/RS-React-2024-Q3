@@ -1,46 +1,48 @@
-// import { fireEvent, render, screen } from '@testing-library/react';
-// import { BrowserRouter } from 'react-router-dom';
-// import { Provider } from 'react-redux';
-// import { ResultProvider } from '../context/resultContext';
-// import Pagination from '../components/common/Pagination';
-// import { currentPage } from './mockData';
-// import store from '../../store/store';
+import { fireEvent, render, screen } from '@testing-library/react';
+import { vi } from 'vitest';
+import { useRouter } from 'next/router';
+import type { Mock } from 'jest-mock';
+import { ResultProvider } from '../context/resultContext';
+import Pagination from '../components/common/Pagination';
+import { currentPage } from './mockData';
 
-// describe('Pagination render', () => {
-//   it('should update URL on page change', () => {
-//     const page = currentPage + 1;
-//     const initialSearchParams = new URLSearchParams({ page: page.toString() });
-//     window.history.pushState({}, '', `?${initialSearchParams.toString()}`);
+vi.mock('next/router', () => ({
+  useRouter: vi.fn(),
+}));
 
-//     const changePage = (newPage: number) => {
-//       window.history.pushState({}, '', `?page=${newPage}`);
-//     };
+describe('Pagination render', () => {
+  it('should update URL on page change', () => {
+    const page = currentPage + 1;
+    const pushMock = vi.fn();
 
-//     render(
-//       <Provider store={store}>
-//         <BrowserRouter>
-//           <ResultProvider>
-//             <Pagination pages={3} currentPage={page} changePage={changePage} />
-//           </ResultProvider>
-//         </BrowserRouter>
-//       </Provider>,
-//     );
+    (useRouter as Mock).mockImplementation(() => ({
+      query: { page: page.toString() },
+      push: pushMock,
+    }));
 
-//     const prevButtonElement = screen.getByText('Prev');
-//     const nextButtonElement = screen.getByText('Next');
+    const changePage = (newPage: number) => {
+      pushMock({ query: { page: newPage.toString() } });
+    };
 
-//     const text = screen.getByText(`${page} of 3`);
+    render(
+      <ResultProvider>
+        <Pagination pages={3} currentPage={page} changePage={changePage} />
+      </ResultProvider>,
+    );
 
-//     expect(text).toBeInTheDocument();
+    const prevButtonElement = screen.getByText('Prev');
+    const nextButtonElement = screen.getByText('Next');
 
-//     fireEvent.click(prevButtonElement);
+    const text = screen.getByText(`${page} of 3`);
 
-//     expect(window.location.search).toContain(`?page=${page - 1}`);
+    expect(text).toBeInTheDocument();
 
-//     fireEvent.click(nextButtonElement);
+    fireEvent.click(prevButtonElement);
+    expect(pushMock).toHaveBeenCalledWith({ query: { page: (page - 1).toString() } });
 
-//     expect(window.location.search).toContain(`?page=${page + 1}`);
+    fireEvent.click(nextButtonElement);
+    expect(pushMock).toHaveBeenCalledWith({ query: { page: (page + 1).toString() } });
 
-//     expect(nextButtonElement).toBeInTheDocument();
-//   });
-// });
+    expect(nextButtonElement).toBeInTheDocument();
+  });
+});

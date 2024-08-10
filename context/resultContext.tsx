@@ -2,7 +2,7 @@ import { createContext, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 
 import { ResultsContext } from '../helpers/types';
-import { getCurrentPage } from '../helpers/utils';
+import getCurrentPage from '../helpers/utils';
 import { defaultPage } from '../helpers/constants';
 
 export const ResultContext = createContext<ResultsContext>({

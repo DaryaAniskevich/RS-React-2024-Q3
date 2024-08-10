@@ -1,4 +1,5 @@
 import { defaultPage } from '../helpers/constants';
+import { MagazineListResponse, OneProductResponse } from '../helpers/types';
 
 export const currentPage = defaultPage;
 export const title = 'Test Magazine 1';
@@ -54,4 +55,24 @@ export const item = {
     },
   ],
   editors: [],
+};
+
+export const magazineListResponse: MagazineListResponse = {
+  page: {
+    pageNumber: 0,
+    pageSize: 10,
+    numberOfElements: 0,
+    totalElements: 0,
+    totalPages: 1,
+    firstPage: true,
+    lastPage: true,
+  },
+  sort: {
+    clauses: [],
+  },
+  magazines: [],
+};
+
+export const oneProductResponse: OneProductResponse = {
+  magazine: item,
 };

@@ -1,66 +1,42 @@
-// import '@testing-library/jest-dom';
+import '@testing-library/jest-dom';
 
-// import { render, screen } from '@testing-library/react';
-// import { BrowserRouter } from 'react-router-dom';
-// import { Provider } from 'react-redux';
-// import { ResultContext } from '../context/resultContext';
-// import Results from '../components/main/Results';
-// import store from '../../store/store';
+import { render, screen } from '@testing-library/react';
+import { vi } from 'vitest';
+import { useRouter } from 'next/router';
+import type { Mock } from 'jest-mock';
+import { ResultProvider } from '../context/resultContext';
+import Results from '../components/main/Results';
+import { magazineListResponse } from './mockData';
 
-// const providerValue = {
-//   currentPage: 1,
-//   isLoading: false,
-//   isError: false,
-//   pages: 1,
-//   fetchData: () => {},
-// };
+vi.mock('next/router', () => ({
+  useRouter: vi.fn(),
+}));
 
-// describe('Results page render', () => {
-//   it('should render 0 items and show no results message', () => {
-//     render(
-//       <Provider store={store}>
-//         <BrowserRouter>
-//           <ResultContext.Provider value={providerValue}>
-//             <Results />
-//           </ResultContext.Provider>
-//         </BrowserRouter>
-//       </Provider>,
-//     );
+describe('Results page render', () => {
+  it('should render 0 items and show no results message', () => {
+    const pushMock = vi.fn();
 
-//     const textElement = screen.getByText('No results');
-//     expect(textElement).toBeInTheDocument();
-//   });
+    (useRouter as Mock).mockReturnValue({
+      push: pushMock,
+      query: {},
+    });
 
-//   it('should show Error message in case of error', () => {
-//     providerValue.isError = true;
-//     render(
-//       <Provider store={store}>
-//         <BrowserRouter>
-//           <ResultContext.Provider value={providerValue}>
-//             <Results />
-//           </ResultContext.Provider>
-//         </BrowserRouter>
-//       </Provider>,
-//     );
+    render(
+      <ResultProvider>
+        <Results data={magazineListResponse} />
+      </ResultProvider>,
+    );
+    const textElement = screen.getByText('No results');
+    expect(textElement).toBeInTheDocument();
+  });
 
-//     const textElement = screen.getByText('Something went wrong');
-//     expect(textElement).toBeInTheDocument();
-//   });
-
-//   it('should show Loader in case of loading', () => {
-//     providerValue.isLoading = true;
-
-//     render(
-//       <Provider store={store}>
-//         <BrowserRouter>
-//           <ResultContext.Provider value={providerValue}>
-//             <Results />
-//           </ResultContext.Provider>
-//         </BrowserRouter>
-//       </Provider>,
-//     );
-
-//     const loader = screen.getByTestId('loader');
-//     expect(loader).toBeInTheDocument();
-//   });
-// });
+  it('should show Loader in case of loading', () => {
+    render(
+      <ResultProvider>
+        <Results data={undefined} />
+      </ResultProvider>,
+    );
+    const loader = screen.getByTestId('loader');
+    expect(loader).toBeInTheDocument();
+  });
+});

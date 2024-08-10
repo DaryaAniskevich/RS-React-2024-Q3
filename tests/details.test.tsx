@@ -1,82 +1,63 @@
-// import { fireEvent, render, screen } from '@testing-library/react';
-// import { BrowserRouter } from 'react-router-dom';
-// import { PATHS } from '../helpers/constants';
-// import DetailsCard from '../components/details/DetailsCard';
-// import DetailsData from '../components/details/DetailsData';
-// import {
-//   currentPage,
-//   item,
-//   numberOfPages,
-//   publishedYear,
-//   publisherName,
-//   seriesTitle,
-//   title,
-// } from './mockData';
+import { render, screen } from '@testing-library/react';
+import { vi } from 'vitest';
+import type { Mock } from 'jest-mock';
+import { useRouter } from 'next/router';
+import DetailsCard from '../components/details/DetailsCard';
+import DetailsData from '../components/details/DetailsData';
+import {
+  currentPage,
+  item,
+  numberOfPages,
+  publishedYear,
+  publisherName,
+  seriesTitle,
+  title,
+} from './mockData';
 
-// describe('Details card render', () => {
-//   it('should render relevant details card data', () => {
-//     render(
-//       <BrowserRouter>
-//         <DetailsCard data={item} isLoading={false} isError={false} />
-//       </BrowserRouter>,
-//     );
+vi.mock('next/router', () => ({
+  useRouter: vi.fn(),
+}));
 
-//     const titleElement = screen.getByText(`${title}, ${numberOfPages} pages (${publishedYear})`);
+describe('Details card render', () => {
+  const pushMock = vi.fn();
 
-//     expect(titleElement).toBeInTheDocument();
-//   });
+  (useRouter as Mock).mockImplementation(() => ({
+    query: { page: currentPage.toString() },
+    push: pushMock,
+  }));
 
-//   it('should show loader while fetching data', () => {
-//     render(
-//       <BrowserRouter>
-//         <DetailsCard data={null} isLoading isError={false} />
-//       </BrowserRouter>,
-//     );
+  it('should render relevant details card data', () => {
+    render(<DetailsCard data={item} isLoading={false} isError={false} />);
 
-//     const loader = screen.getByTestId('loader');
-//     expect(loader).toBeInTheDocument();
-//   });
+    const titleElement = screen.getByText(`${title}, ${numberOfPages} pages (${publishedYear})`);
 
-//   it('should show error message if error', () => {
-//     render(
-//       <BrowserRouter>
-//         <DetailsCard data={null} isLoading={false} isError />
-//       </BrowserRouter>,
-//     );
+    expect(titleElement).toBeInTheDocument();
+  });
 
-//     const errorElement = screen.getByText('Something went wrong');
+  it('should show loader while fetching data', () => {
+    render(<DetailsCard data={null} isLoading isError={false} />);
 
-//     expect(errorElement).toBeInTheDocument();
-//   });
+    const loader = screen.getByTestId('loader');
+    expect(loader).toBeInTheDocument();
+  });
 
-//   it('should hide details after clicking close button', () => {
-//     render(
-//       <BrowserRouter>
-//         <DetailsCard data={null} isLoading isError={false} />
-//       </BrowserRouter>,
-//     );
+  it('should show error message if error', () => {
+    render(<DetailsCard data={null} isLoading={false} isError />);
 
-//     const closeButton = screen.getByRole('button');
-//     fireEvent.click(closeButton);
+    const errorElement = screen.getByText('Something went wrong');
 
-//     const { location } = window;
-//     const { pathname, search } = location;
-//     expect(pathname + search).toBe(`${PATHS.MAIN}?page=${currentPage}`);
-//   });
+    expect(errorElement).toBeInTheDocument();
+  });
 
-//   it('should render detail data in card', () => {
-//     render(
-//       <BrowserRouter>
-//         <DetailsData data={item} />
-//       </BrowserRouter>,
-//     );
+  it('should render detail data in card', () => {
+    render(<DetailsData data={item} />);
 
-//     const titleElement = screen.getByText(`${title}, ${numberOfPages} pages (${publishedYear})`);
-//     const seriesTitleElement = screen.getByText(`Magazine series: ${seriesTitle}`);
-//     const publisherElement = screen.getByText(`Publisher: ${publisherName}`);
+    const titleElement = screen.getByText(`${title}, ${numberOfPages} pages (${publishedYear})`);
+    const seriesTitleElement = screen.getByText(`Magazine series: ${seriesTitle}`);
+    const publisherElement = screen.getByText(`Publisher: ${publisherName}`);
 
-//     expect(titleElement).toBeInTheDocument();
-//     expect(seriesTitleElement).toBeInTheDocument();
-//     expect(publisherElement).toBeInTheDocument();
-//   });
-// });
+    expect(titleElement).toBeInTheDocument();
+    expect(seriesTitleElement).toBeInTheDocument();
+    expect(publisherElement).toBeInTheDocument();
+  });
+});

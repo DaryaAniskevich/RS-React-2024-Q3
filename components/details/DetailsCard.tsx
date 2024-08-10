@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import ErrorMessage from '../common/ErrorMessage';
 import Loader from '../common/Loader';
 import DetailsData from './DetailsData';
-import { getCurrentPage } from '../../helpers/utils';
+import getCurrentPage from '../../helpers/utils';
 import { PATHS } from '../../helpers/constants';
 import { DetailsCardProps } from '../../helpers/types';
 import style from './style.module.css';
