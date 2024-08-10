@@ -1,18 +1,17 @@
 // import { Outlet } from "react-router-dom";
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { ThemeContext } from '../context/themeContext';
 import { ResultProvider } from '../context/resultContext';
 import Search from '../components/main/Search';
 import Results from '../components/main/Results';
 import { apiUrlSearch, defaultPageSize } from '../helpers/constants';
 import ErrorBoundaryLayout from '../components/common/ErrorBoundaryLayout';
+import style from '../styles/main.module.css';
+import { MagazineListResponse } from '../helpers/types';
 
-export default function Page({ data }) {
+export default function Page({ data }: { data: MagazineListResponse | undefined }) {
   const router = useRouter();
   const { query } = router;
-
-  const { theme } = useContext(ThemeContext);
 
   useEffect(() => {
     if (!query.page) {
@@ -22,10 +21,10 @@ export default function Page({ data }) {
 
   return (
     <ErrorBoundaryLayout>
-      <main className={theme}>
-        <div className="container">
-          <div className="main">
-            <div className="content">
+      <main>
+        <div className={style.container}>
+          <div className={style.main}>
+            <div className={style.content}>
               <ResultProvider>
                 <Search />
                 <Results data={data} />

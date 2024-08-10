@@ -5,6 +5,7 @@ import { ResultContext } from '../../context/resultContext';
 import Pagination from '../common/Pagination';
 import CardList from './CardList';
 import { MagazineListResponse } from '../../helpers/types';
+import style from './style.module.css';
 
 function Results({ data }: { data: MagazineListResponse | undefined }) {
   const router = useRouter();
@@ -36,7 +37,7 @@ function Results({ data }: { data: MagazineListResponse | undefined }) {
   }
 
   return (
-    <div className="results">
+    <div className={style.results}>
       <h2>Magazines Results</h2>
       {content}
     </div>

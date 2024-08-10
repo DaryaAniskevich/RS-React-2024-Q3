@@ -1,11 +1,8 @@
-html,
-body {
-  margin: 0;
-  padding: 0;
+.main {
+  display: flex;
 }
-
-main {
-  min-height: calc(100vh - 78px);
+.main .content {
+  width: 110%;
 }
 
 .light {

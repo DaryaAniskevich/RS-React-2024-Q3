@@ -1,15 +1,15 @@
-import { ChangeEvent, useContext } from 'react';
+import { ChangeEvent } from 'react';
 import { useRouter } from 'next/router';
 import useLocalStorageSearchValue from '../../helpers/hooks';
 import { defaultPage } from '../../helpers/constants';
-import { ThemeContext } from '../../context/themeContext';
+import ButtonGreen from '../common/ButtonGreen';
+import style from './style.module.css';
 
 function Search() {
   const router = useRouter();
   const { query } = router;
 
   const { searchValue, setSearchValue, saveSearchValueInLS } = useLocalStorageSearchValue();
-  const { theme } = useContext(ThemeContext);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(event.target.value);
@@ -21,11 +21,11 @@ function Search() {
   };
 
   return (
-    <div className="search">
-      <input value={searchValue} onChange={handleChange} />
-      <button type="submit" onClick={handleSubmit} className={`${theme} button-search`}>
+    <div className={style.search}>
+      <input value={searchValue} onChange={handleChange} className={style.input} />
+      <ButtonGreen className={style.button_search} onClick={handleSubmit}>
         Search
-      </button>
+      </ButtonGreen>
     </div>
   );
 }

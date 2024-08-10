@@ -97,3 +97,10 @@ export type DetailsCardProps = {
 };
 
 export type ErrorBoundaryLayoutProps = { children?: React.ReactNode };
+
+export type ButtonGreenProps = {
+  children: string | React.ReactNode;
+  onClick: () => void;
+  className?: string;
+  disabled?: boolean;
+};

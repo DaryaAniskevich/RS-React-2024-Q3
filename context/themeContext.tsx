@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useEffect, useMemo, useState } from 'react';
+import { createContext, ReactNode, useCallback, useEffect, useMemo, useState } from 'react';
 import { LIGHT, DARK, localStorageTheme } from '../helpers/constants';
 
 export const ThemeContext = createContext({
@@ -18,13 +18,15 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
-  const toggleTheme = () => {
+  const toggleTheme = useCallback(() => {
     const newTheme = theme === LIGHT ? DARK : LIGHT;
     setTheme(newTheme);
-    localStorage.setItem(localStorageTheme, newTheme);
-  };
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(localStorageTheme, newTheme);
+    }
+  }, [theme]);
 
-  const value = useMemo(() => ({ theme, toggleTheme }), [theme]);
+  const value = useMemo(() => ({ theme, toggleTheme }), [theme, toggleTheme]);
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 }

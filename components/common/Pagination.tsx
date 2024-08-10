@@ -1,6 +1,8 @@
 import { useContext } from 'react';
 import { defaultPage } from '../../helpers/constants';
 import { ThemeContext } from '../../context/themeContext';
+import ButtonGreen from './ButtonGreen';
+import style from './style.module.css';
 
 function Pagination({
   pages,
@@ -14,22 +16,20 @@ function Pagination({
   const { theme } = useContext(ThemeContext);
 
   return (
-    <div className="pagination">
-      <button
-        type="button"
-        className={`${theme} button-pagination`}
+    <div className={style.pagination}>
+      <ButtonGreen
+        className={`${style[theme]} ${style.button_pagination}`}
         disabled={currentPage === defaultPage}
         onClick={() => changePage(currentPage - 1)}>
         Prev
-      </button>
+      </ButtonGreen>
       {currentPage} of {pages}
-      <button
-        type="button"
-        className={`${theme} button-pagination`}
+      <ButtonGreen
+        className={`${style[theme]} ${style.button_pagination}`}
         disabled={currentPage >= pages}
         onClick={() => changePage(currentPage + 1)}>
         Next
-      </button>
+      </ButtonGreen>
     </div>
   );
 }
