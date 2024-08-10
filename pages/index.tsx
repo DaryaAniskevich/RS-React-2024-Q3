@@ -30,7 +30,6 @@ export default function Page({ data }: { data: MagazineListResponse | undefined 
                 <Results data={data} />
               </ResultProvider>
             </div>
-            {/* <Outlet /> */}
           </div>
         </div>
       </main>

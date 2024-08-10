@@ -1,4 +1,3 @@
-import { useContext } from 'react';
 import { useRouter } from 'next/router';
 
 import ErrorMessage from '../common/ErrorMessage';
@@ -7,18 +6,20 @@ import DetailsData from './DetailsData';
 import { getCurrentPage } from '../../helpers/utils';
 import { PATHS } from '../../helpers/constants';
 import { DetailsCardProps } from '../../helpers/types';
-import { ThemeContext } from '../../context/themeContext';
+import style from './style.module.css';
+import ButtonWhite from '../common/ButtonWhite';
 
 function DetailsCard({ data, isLoading, isError }: DetailsCardProps) {
   const router = useRouter();
   const { query } = router;
 
-  const { theme } = useContext(ThemeContext);
-
   const currentPage = getCurrentPage(query.page);
 
   const closeDetails = () => {
-    router.push({ pathname: PATHS.MAIN, query: { ...query, page: currentPage.toString() } });
+    router.push({
+      pathname: PATHS.MAIN,
+      query: { search: query.search, page: currentPage.toString() },
+    });
   };
 
   let content;
@@ -32,10 +33,8 @@ function DetailsCard({ data, isLoading, isError }: DetailsCardProps) {
   }
 
   return (
-    <div className="content details">
-      <button type="button" className={`${theme} button-close`} onClick={closeDetails}>
-        Close
-      </button>
+    <div className={style.details}>
+      <ButtonWhite onClick={closeDetails}>Close</ButtonWhite>
       {content}
     </div>
   );

@@ -73,3 +73,30 @@
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+.button_white {
+  padding: 10px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 12px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-weight: 700;
+}
+
+.button_white.light {
+  border: 1px solid #fff;
+  background-color: #fff;
+  color: #7acb7f;
+}
+.button_white.dark {
+  border: 1px solid #7acb7f;
+  background-color: #7acb7f;
+  color: #fff;
+}
+
+.button_white:hover {
+  background-color: #7acb7f;
+  color: #fff;
+}
