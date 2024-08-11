@@ -5,7 +5,6 @@ import { useRouter } from 'next/router';
 
 import ListItem from '../components/main/ListItem';
 import { defaultPage, magazineKeyTranslation } from '../helpers/constants';
-import { ResultProvider } from '../context/resultContext';
 
 vi.mock('next/router', () => ({
   useRouter: vi.fn(),
@@ -28,7 +27,7 @@ const item = {
   numberOfPages,
   issueNumber: null,
 };
-
+const selectItem = () => {};
 describe('Card List item render', () => {
   it('should render relevant card data', () => {
     const pushMock = vi.fn();
@@ -38,11 +37,7 @@ describe('Card List item render', () => {
       query: { page: currentPage.toString() },
     });
 
-    render(
-      <ResultProvider>
-        <ListItem magazine={item} currentPage={currentPage} />
-      </ResultProvider>,
-    );
+    render(<ListItem magazine={item} currentPage={currentPage} selectItem={selectItem} />);
 
     const titleElement = screen.getByText(`Name: ${title}`);
     const typeElement = screen.getByText(
@@ -63,11 +58,7 @@ describe('Card List item render', () => {
     item.publishedYear = null;
     item.numberOfPages = null;
 
-    render(
-      <ResultProvider>
-        <ListItem magazine={item} currentPage={currentPage} />
-      </ResultProvider>,
-    );
+    render(<ListItem magazine={item} currentPage={currentPage} selectItem={selectItem} />);
 
     const titleElement = screen.getByText(`Name: ${title}`);
     const typeElement = screen.getByText(

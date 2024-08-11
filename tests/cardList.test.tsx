@@ -7,7 +7,6 @@ import { useRouter } from 'next/router';
 
 import CardList from '../components/main/CardList';
 import { MagazineItem } from '../helpers/types';
-import { ResultProvider } from '../context/resultContext';
 
 vi.mock('next/router', () => ({
   useRouter: vi.fn(),
@@ -51,11 +50,7 @@ describe('Card List render', () => {
       query: {},
     });
 
-    render(
-      <ResultProvider>
-        <CardList items={items} currentPage={currentPage} />
-      </ResultProvider>,
-    );
+    render(<CardList items={items} currentPage={currentPage} />);
     const elements = screen.getAllByRole('listitem');
     expect(elements.length).toBe(items.length);
   });
@@ -64,11 +59,7 @@ describe('Card List render', () => {
     const currentPage = 1;
     const emptyItems: MagazineItem[] = [];
 
-    render(
-      <ResultProvider>
-        <CardList items={emptyItems} currentPage={currentPage} />
-      </ResultProvider>,
-    );
+    render(<CardList items={emptyItems} currentPage={currentPage} />);
 
     const textElement = screen.getByText('No results');
     expect(textElement).toBeInTheDocument();
