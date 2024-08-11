@@ -1,5 +1,5 @@
 import { defaultPage } from '../helpers/constants';
-import { MagazineListResponse, OneProductResponse } from '../helpers/types';
+import { MagazineItem, MagazineListResponse, OneProductResponse } from '../helpers/types';
 
 export const currentPage = defaultPage;
 export const title = 'Test Magazine 1';
@@ -75,4 +75,53 @@ export const magazineListResponse: MagazineListResponse = {
 
 export const oneProductResponse: OneProductResponse = {
   magazine: item,
+};
+
+export const selectedItems: MagazineItem[] = [
+  {
+    uid: '1',
+    title: 'Test Magazine 1',
+    publishedYear: 1999,
+    publishedMonth: null,
+    publishedDay: null,
+    coverYear: null,
+    coverMonth: null,
+    coverDay: null,
+    numberOfPages: 70,
+    issueNumber: null,
+  },
+];
+
+const addSelectedItems = (magazine: MagazineItem) => {
+  selectedItems.push(magazine);
+};
+
+const removeSelectedItem = (magazine: MagazineItem) => {
+  selectedItems.filter((_item) => _item.uid !== magazine.uid);
+};
+const removeAllSelected = () => {
+  selectedItems.length = 0;
+};
+
+export const selectedProviderValue = {
+  selectedItems,
+  addSelectedItems,
+  removeSelectedItem,
+  removeAllSelected,
+};
+
+export const magazineListResponseWithData: MagazineListResponse = {
+  page: {
+    pageNumber: 1,
+    pageSize: 10,
+    numberOfElements: 0,
+    totalElements: 0,
+    totalPages: 1,
+    firstPage: true,
+    lastPage: true,
+  },
+  sort: {
+    clauses: [],
+  },
+  magazines: selectedItems,
 };

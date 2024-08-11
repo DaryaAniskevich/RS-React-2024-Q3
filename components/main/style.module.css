@@ -62,11 +62,22 @@
 }
 
 .button_search,
-.button-actions {
+.button_actions {
   font-weight: 700;
 }
-.button-actions-csv {
+.button_actions_csv {
   display: flex;
   text-decoration: none;
   padding: 10px 20px;
+}
+
+.button_actions_csv.light {
+  border: 1px solid #7acb7f;
+  background-color: #7acb7f;
+  color: #fff;
+}
+.button_actions_csv.dark {
+  border: 1px solid #fff;
+  background-color: #fff;
+  color: #529957;
 }
