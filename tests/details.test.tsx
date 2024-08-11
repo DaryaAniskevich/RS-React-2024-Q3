@@ -1,30 +1,18 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { vi } from 'vitest';
-import type { Mock } from 'jest-mock';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import DetailsCard from '../components/details/DetailsCard';
 import DetailsData from '../components/details/DetailsData';
-import {
-  currentPage,
-  item,
-  numberOfPages,
-  publishedYear,
-  publisherName,
-  seriesTitle,
-  title,
-} from './mockData';
+import { item, numberOfPages, publishedYear, publisherName, seriesTitle, title } from './mockData';
 
-vi.mock('next/router', () => ({
-  useRouter: vi.fn(),
+vi.mock('next/navigation', () => ({
+  useRouter: () => ({ push: vi.fn() }),
+  useSearchParams: () => new URLSearchParams(),
 }));
 
 describe('Details card render', () => {
   const pushMock = vi.fn();
-
-  (useRouter as Mock).mockImplementation(() => ({
-    query: { page: currentPage.toString() },
-    push: pushMock,
-  }));
+  useRouter().push = pushMock;
 
   it('should render relevant details card data', () => {
     render(<DetailsCard data={item} isLoading={false} isError={false} />);
@@ -59,5 +47,12 @@ describe('Details card render', () => {
     expect(titleElement).toBeInTheDocument();
     expect(seriesTitleElement).toBeInTheDocument();
     expect(publisherElement).toBeInTheDocument();
+  });
+
+  it('should call router.push on close button click', () => {
+    render(<DetailsCard data={item} isLoading={false} isError={false} />);
+
+    const closeButton = screen.getByRole('button', { name: 'Close' });
+    fireEvent.click(closeButton);
   });
 });

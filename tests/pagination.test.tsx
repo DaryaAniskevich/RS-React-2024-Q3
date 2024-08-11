@@ -2,7 +2,6 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import { vi } from 'vitest';
 import { useRouter } from 'next/router';
 import type { Mock } from 'jest-mock';
-import { ResultProvider } from '../context/resultContext';
 import Pagination from '../components/common/Pagination';
 import { currentPage } from './mockData';
 
@@ -24,11 +23,7 @@ describe('Pagination render', () => {
       pushMock({ query: { page: newPage.toString() } });
     };
 
-    render(
-      <ResultProvider>
-        <Pagination pages={3} currentPage={page} changePage={changePage} />
-      </ResultProvider>,
-    );
+    render(<Pagination pages={3} currentPage={page} changePage={changePage} />);
 
     const prevButtonElement = screen.getByText('Prev');
     const nextButtonElement = screen.getByText('Next');

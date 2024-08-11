@@ -2,7 +2,7 @@ import { createContext, useCallback, useMemo, useState } from 'react';
 import { MagazineItem } from '../helpers/types';
 
 export const SelectedContext = createContext({
-  selectedItems: [],
+  selectedItems: [] as MagazineItem[],
   addSelectedItems: (magazine: MagazineItem) => console.log(magazine),
   removeSelectedItem: (magazine: MagazineItem) => console.log(magazine),
   removeAllSelected: () => {},

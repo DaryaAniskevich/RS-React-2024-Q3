@@ -33,7 +33,7 @@ export async function generateStaticParams() {
 export default async function Page({ params }: { params: { page: string; search: string } }) {
   const { page, search } = params;
 
-  await fetchSearchData(+page || 0, search || '');
+  await fetchSearchData(+page || 1, search || '');
 
   return (
     <main>
@@ -50,33 +50,3 @@ export default async function Page({ params }: { params: { page: string; search:
     </main>
   );
 }
-
-// export async function getServerSideProps(context) {
-//   const { page, search } = context.query;
-
-//   const response = await fetch(
-//     `${apiUrlSearch}?pageNumber=${page ? page - 1 : 0}&pageSize=${defaultPageSize}`,
-//     {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/x-www-form-urlencoded',
-//       },
-//       body: new URLSearchParams({
-//         title: search || '',
-//       }),
-//     },
-//   );
-
-//   const data = await response.json();
-
-//   const pages = Array.from({ length: data.page.totalPages }, (_, i) => i + 1).map((_page) => ({
-//     params: { page: _page },
-//   }));
-
-//   return {
-//     props: {
-//       data,
-//       pages,
-//     },
-//   };
-// }

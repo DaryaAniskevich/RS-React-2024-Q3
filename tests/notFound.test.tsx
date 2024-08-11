@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { it } from 'vitest';
-import NotFound from '../pages/404';
+import NotFound from '../app/not-found';
 
 describe('Not found render', () => {
   it('should render Not found page', () => {

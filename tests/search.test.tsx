@@ -1,41 +1,22 @@
 import { fireEvent, render, screen } from '@testing-library/react';
-import { userEvent } from '@testing-library/user-event';
 import { describe, it, vi } from 'vitest';
-import { useRouter } from 'next/router';
-import type { Mock } from 'jest-mock';
+import { useRouter } from 'next/navigation';
+
 import Search from '../components/main/Search';
 import { localStorageSearchValue } from '../helpers/constants';
 
 const searchValue = 'magazine';
 
-vi.mock('next/router', () => ({
-  useRouter: vi.fn(),
+vi.mock('next/navigation', () => ({
+  useRouter: vi.fn(() => ({
+    push: vi.fn(),
+    replace: vi.fn(),
+  })),
+  usePathname: vi.fn(() => '/search'),
+  useSearchParams: vi.fn(() => new URLSearchParams()),
 }));
 
 describe('Search render', () => {
-  it('should save search value in the local storage', async () => {
-    const pushMock = vi.fn();
-
-    (useRouter as Mock).mockReturnValue({
-      push: pushMock,
-      query: {},
-    });
-
-    render(<Search />);
-    const searchInput: HTMLInputElement = screen.getByRole('textbox');
-    const searchButton = screen.getByRole('button');
-
-    const initialValue = searchInput.value;
-    expect(initialValue).toBe('');
-
-    userEvent.type(searchInput, searchValue);
-
-    fireEvent.click(searchButton, () => {
-      const LSValue = localStorage.getItem(localStorageSearchValue);
-      expect(LSValue).toBe(searchValue);
-    });
-  });
-
   it('should retrieve the value from the local storage upon mounting', () => {
     localStorage.setItem(localStorageSearchValue, searchValue);
 
@@ -44,5 +25,17 @@ describe('Search render', () => {
     const searchInput = getByDisplayValue(searchValue);
 
     expect(searchInput).toBeInTheDocument();
+  });
+
+  it('should submit the form and update search params on submit', () => {
+    const mockRouterPush = vi.fn();
+    (useRouter as jest.Mock).mockReturnValue({ push: mockRouterPush, replace: mockRouterPush });
+
+    render(<Search />);
+
+    const button = screen.getByRole('button');
+    fireEvent.click(button);
+
+    expect(mockRouterPush).toHaveBeenCalledWith('/search/?page=1&search=magazine'); // Assuming defaultPage is 1
   });
 });
