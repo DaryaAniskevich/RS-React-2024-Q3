@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 import { defaultPage } from '../../helpers/constants';
-import { ThemeContext } from '../../context/themeContext';
 import ButtonGreen from './ButtonGreen';
 import style from './style.module.css';
+import ThemeContext from '../../context/themeContext';
 
 function Pagination({
   pages,

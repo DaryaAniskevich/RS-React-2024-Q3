@@ -1,3 +1,12 @@
+.light {
+  background-color: #cbedcd;
+  color: #000;
+}
+.dark {
+  background-color: #323232;
+  color: #fff;
+}
+
 .loader {
   width: 50px;
   --b: 8px;

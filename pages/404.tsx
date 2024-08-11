@@ -1,9 +1,9 @@
 import { useContext } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { ThemeContext } from '../context/themeContext';
 import { PATHS } from '../helpers/constants';
 import style from '../styles/notFound.module.css';
+import ThemeContext from '../context/themeContext';
 
 export default function NotFound() {
   const { theme } = useContext(ThemeContext);
