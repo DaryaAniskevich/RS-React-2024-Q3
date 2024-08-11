@@ -1,7 +1,7 @@
 import { defaultPage } from './constants';
 
-export const getCurrentPage = (queryPage: number) => {
-  const page = typeof queryPage === 'number' ? queryPage : +queryPage;
+export const getCurrentPage = (queryPage: string) => {
+  const page = typeof queryPage === 'string' ? +queryPage : queryPage;
   return page || defaultPage;
 };
 

@@ -1,6 +1,6 @@
-import { apiUrlSearch, defaultPageSize } from '../helpers/constants';
+import { apiUrl, apiUrlSearch, defaultPageSize } from '../helpers/constants';
 
-async function fetchSearchData(page: number, search: string) {
+export async function fetchSearchData(page: number, search: string) {
   const response = await fetch(
     `${apiUrlSearch}?pageNumber=${page ? page - 1 : 0}&pageSize=${defaultPageSize}`,
     {
@@ -21,4 +21,10 @@ async function fetchSearchData(page: number, search: string) {
   return response.json();
 }
 
-export default fetchSearchData;
+export async function getDetailsData(uid: string) {
+  const responseDetails = await fetch(`${apiUrl}?uid=${uid}`);
+
+  const dataDetails = await responseDetails.json();
+
+  return dataDetails;
+}

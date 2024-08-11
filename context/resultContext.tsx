@@ -13,7 +13,7 @@ export const ResultContext = createContext<ResultsContext>({
   setAllPagesFn: () => {},
 });
 
-export function ResultProvider({ children, page }: { children: React.ReactNode; page: number }) {
+export function ResultProvider({ children, page }: { children: React.ReactNode; page: string }) {
   const currentPage = getCurrentPage(page);
 
   const [allPages, setAllPages] = useState(0);

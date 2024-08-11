@@ -1,25 +1,46 @@
+import { fetchSearchData, getDetailsData } from '../../../api/api';
 import DetailsCard from '../../../components/details/DetailsCard';
 import Results from '../../../components/main/Results';
 import Search from '../../../components/main/Search';
 import { ResultProvider } from '../../../context/resultContext';
-import { MagazineListResponse, OneProductResponse } from '../../../helpers/types';
+import { apiUrlSearch, defaultPage } from '../../../helpers/constants';
+import { MagazineListResponse } from '../../../helpers/types';
 import style from '../../../styles/main.module.css';
 
-export default function Details({
-  dataAll,
-  dataDetails,
+export async function generateStaticParams() {
+  const response = await fetch(`${apiUrlSearch}?pageNumber=${defaultPage - 1}&pageSize=1000`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: new URLSearchParams({
+      title: '',
+    }),
+  });
+  const data = (await response.json()) as MagazineListResponse;
+
+  return data?.magazines.map((item) => ({ uid: item.uid }));
+}
+
+export default async function Details({
+  params,
 }: {
-  dataAll: MagazineListResponse | undefined;
-  dataDetails: OneProductResponse | undefined;
+  params: { page: string; search: string; uid: string };
 }) {
+  const { page, search, uid } = params;
+
+  await fetchSearchData(+page || 0, search || '');
+
+  const dataDetails = await getDetailsData(uid as string);
+
   return (
     <main>
       <div className={style.container}>
         <div className={style.main}>
           <div className={style.content}>
-            <ResultProvider>
+            <ResultProvider page={page}>
               <Search />
-              <Results data={dataAll} />
+              <Results />
             </ResultProvider>
           </div>
           <DetailsCard
@@ -32,33 +53,3 @@ export default function Details({
     </main>
   );
 }
-
-// export async function getServerSideProps(context) {
-//   const { uid } = context.params;
-//   const { page, search } = context.query;
-
-//   const responseAll = await fetch(
-//     `${apiUrlSearch}?pageNumber=${page ? page - 1 : 0}&pageSize=${defaultPageSize}`,
-//     {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/x-www-form-urlencoded',
-//       },
-//       body: new URLSearchParams({
-//         title: search || '',
-//       }),
-//     },
-//   );
-//   const dataAll = await responseAll.json();
-
-//   const responseDetails = await fetch(`${apiUrl}?uid=${uid}`);
-
-//   const dataDetails = await responseDetails.json();
-
-//   return {
-//     props: {
-//       dataAll,
-//       dataDetails,
-//     },
-//   };
-// }

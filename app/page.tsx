@@ -3,7 +3,7 @@ import Search from '../components/main/Search';
 import Results from '../components/main/Results';
 import { apiUrlSearch, defaultPage, defaultPageSize } from '../helpers/constants';
 import style from '../styles/main.module.css';
-import fetchSearchData from '../api/api';
+import { fetchSearchData } from '../api/api';
 
 export async function generateStaticParams() {
   const response = await fetch(
@@ -30,7 +30,7 @@ export async function generateStaticParams() {
   return arr.map((page) => ({ page: page.toString() }));
 }
 
-export default async function Page({ params }) {
+export default async function Page({ params }: { params: { page: string; search: string } }) {
   const { page, search } = params;
 
   await fetchSearchData(+page || 0, search || '');

@@ -8,7 +8,7 @@ import CardList from './CardList';
 import { MagazineListResponse } from '../../helpers/types';
 import style from './style.module.css';
 import ActionsWithSelectedItems from './ActionsWithSelectedItems';
-import fetchSearchData from '../../api/api';
+import { fetchSearchData } from '../../api/api';
 import { SelectedContext } from '../../context/selectedContext';
 
 function Results() {
