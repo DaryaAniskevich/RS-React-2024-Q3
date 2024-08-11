@@ -1,0 +1,23 @@
+.not_found {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  align-items: center;
+}
+.not_found h1 {
+  text-align: center;
+}
+.not_found img {
+  max-width: 100vw;
+}
+
+.not_found .link {
+  padding: 10px 20px;
+  border-radius: 10px;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 700;
+  background-color: #7acb7f;
+  color: #fff;
+}

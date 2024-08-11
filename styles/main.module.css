@@ -1,0 +1,12 @@
+.main {
+  display: flex;
+}
+.main .content {
+  width: 110%;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 30px 10px;
+}

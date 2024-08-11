@@ -1,0 +1,83 @@
+.input {
+  padding: 10px 20px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+.search {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.results {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  list-style: none;
+  padding-left: 0;
+}
+.list_item {
+  display: flex;
+  gap: 10px;
+}
+.list_item a {
+  display: flex;
+  flex-direction: column;
+  color: inherit;
+  text-decoration: none;
+}
+.list_item a.active,
+.list_item a:hover {
+  font-weight: 700;
+}
+.list_item__name {
+  font-size: 17px;
+}
+
+.actions {
+  margin-top: 20px;
+  padding: 10px 50px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: sticky;
+  bottom: 0;
+  left: 0;
+}
+
+.actions.light {
+  background-color: #cbedcd;
+}
+.actions.dark {
+  background-color: #323232;
+}
+
+.button_search,
+.button_actions {
+  font-weight: 700;
+}
+.button_actions_csv {
+  display: flex;
+  text-decoration: none;
+  padding: 10px 20px;
+}
+
+.button_actions_csv.light {
+  border: 1px solid #7acb7f;
+  background-color: #7acb7f;
+  color: #fff;
+}
+.button_actions_csv.dark {
+  border: 1px solid #fff;
+  background-color: #fff;
+  color: #529957;
+}
