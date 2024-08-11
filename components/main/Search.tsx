@@ -1,5 +1,7 @@
-import { ChangeEvent } from 'react';
-import { useRouter } from 'next/router';
+'use client';
+
+import { ChangeEvent, useEffect } from 'react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import useLocalStorageSearchValue from '../../helpers/hooks';
 import { defaultPage } from '../../helpers/constants';
 import ButtonGreen from '../common/ButtonGreen';
@@ -7,9 +9,19 @@ import style from './style.module.css';
 
 function Search() {
   const router = useRouter();
-  const { query } = router;
+
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const page = searchParams.get('page');
+  const search = searchParams.get('search');
 
   const { searchValue, setSearchValue, saveSearchValueInLS } = useLocalStorageSearchValue();
+
+  useEffect(() => {
+    if (!page) {
+      router.replace(`${pathname}?page=${defaultPage}&search=${search || searchValue}`);
+    }
+  }, [page, search, searchValue, pathname, router]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchValue(event.target.value);
@@ -17,7 +29,7 @@ function Search() {
 
   const handleSubmit = async () => {
     saveSearchValueInLS();
-    router.push({ query: { ...query, page: defaultPage.toString(), search: searchValue } });
+    router.push(`${pathname}/?page=${defaultPage}&search=${searchValue}`);
   };
 
   return (

@@ -1,29 +1,37 @@
-import { useContext, useEffect } from 'react';
-import { useRouter } from 'next/router';
+'use client';
+
+import { useContext, useEffect, useState } from 'react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import Loader from '../common/Loader';
-import { ResultContext } from '../../context/resultContext';
 import Pagination from '../common/Pagination';
 import CardList from './CardList';
 import { MagazineListResponse } from '../../helpers/types';
 import style from './style.module.css';
 import ActionsWithSelectedItems from './ActionsWithSelectedItems';
+import fetchSearchData from '../../api/api';
 import { SelectedContext } from '../../context/selectedContext';
 
-function Results({ data }: { data: MagazineListResponse | undefined }) {
+function Results() {
   const router = useRouter();
-  const { query } = router;
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const page = searchParams.get('page');
+  const search = searchParams.get('search');
+  const [data, setData] = useState<MagazineListResponse>();
 
-  const { pages, setAllPagesFn, currentPage } = useContext(ResultContext);
-  const { selectedItems } = useContext(SelectedContext);
+  const getData = async () => {
+    const res = await fetchSearchData(Number(page) || 0, search || '');
+    setData(res);
+  };
 
   useEffect(() => {
-    setAllPagesFn(data?.page.totalPages || 0);
-  }, [data, setAllPagesFn]);
+    getData();
+  }, [page, search]);
 
-  const searchData = data?.magazines || [];
+  const { selectedItems } = useContext(SelectedContext);
 
-  const changePage = (page: number) => {
-    router.push({ query: { ...query, page: page.toString() } });
+  const changePage = (newPage: number) => {
+    router.push(`${pathname}/?page=${newPage}&search=${search}`);
   };
 
   const numberOfSelectedItems = selectedItems.length;
@@ -35,8 +43,12 @@ function Results({ data }: { data: MagazineListResponse | undefined }) {
   } else {
     content = (
       <>
-        <CardList items={searchData} currentPage={currentPage} />
-        <Pagination pages={pages} currentPage={currentPage} changePage={changePage} />
+        <CardList items={data?.magazines || []} currentPage={Number(page) || 1} />
+        <Pagination
+          pages={data?.page?.totalPages || 0}
+          currentPage={Number(page) || 1}
+          changePage={changePage}
+        />
         {numberOfSelectedItems > 0 && <ActionsWithSelectedItems />}
       </>
     );

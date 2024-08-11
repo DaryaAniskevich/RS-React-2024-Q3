@@ -1,5 +1,7 @@
+'use client';
+
 import { createContext, useMemo, useState } from 'react';
-import { useRouter } from 'next/router';
+// import { useRouter } from 'next/router';
 
 import { ResultsContext } from '../helpers/types';
 import { getCurrentPage } from '../helpers/utils';
@@ -11,11 +13,8 @@ export const ResultContext = createContext<ResultsContext>({
   setAllPagesFn: () => {},
 });
 
-export function ResultProvider({ children }: { children: React.ReactNode }) {
-  const router = useRouter();
-  const { query } = router;
-
-  const currentPage = getCurrentPage(query.page);
+export function ResultProvider({ children, page }: { children: React.ReactNode; page: number }) {
+  const currentPage = getCurrentPage(page);
 
   const [allPages, setAllPages] = useState(0);
 

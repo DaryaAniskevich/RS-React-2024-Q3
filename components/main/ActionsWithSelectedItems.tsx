@@ -1,3 +1,5 @@
+'use client';
+
 import { useContext } from 'react';
 import { convertToCSV } from '../../helpers/utils';
 import ThemeContext from '../../context/themeContext';

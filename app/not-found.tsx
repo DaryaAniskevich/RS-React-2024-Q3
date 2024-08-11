@@ -5,7 +5,7 @@ import { PATHS } from '../helpers/constants';
 import style from '../styles/notFound.module.css';
 import ThemeContext from '../context/themeContext';
 
-export default function NotFound() {
+export default async function NotFound() {
   const { theme } = useContext(ThemeContext);
 
   return (

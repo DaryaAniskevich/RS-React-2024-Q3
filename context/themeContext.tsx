@@ -1,3 +1,5 @@
+'use client';
+
 import { createContext } from 'react';
 import { LIGHT } from '../helpers/constants';
 

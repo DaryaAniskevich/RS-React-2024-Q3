@@ -1,8 +1,8 @@
 import { defaultPage } from './constants';
 
-export const getCurrentPage = (queryPage: string | string[]) => {
-  const page = typeof queryPage === 'string' ? queryPage : queryPage?.[0];
-  return page ? +page : defaultPage;
+export const getCurrentPage = (queryPage: number) => {
+  const page = typeof queryPage === 'number' ? queryPage : +queryPage;
+  return page || defaultPage;
 };
 
 export function convertToCSV<T>(data: T[]) {
